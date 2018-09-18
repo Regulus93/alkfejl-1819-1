@@ -1,0 +1,37 @@
+Táblanév: Névjegyek
+	Funkció: Reprezentálja a névjegy entitást, a névjegyen szereplő cég vagy vállalkozó nevével, a szolgáltatás helyével, és egyéb elérhetőségi adatokkal
+	Attribútumok:
+		- azonosító - number (?)
+		- név - varchar
+		- cím - varchar
+		- telefonszám - varchar
+		- kategória - number (idegenkulcs)
+
+
+Táblanév: Felhasználók
+Funkció: az alkalmazást használó felhasználók tárolására
+	Attribútumok:
+		- felhasználónév [kulcs] - varchar
+		- jelszó - varchar (rejtett) 
+		- email cím - varchar
+
+Táblanév: Kategóriák
+Funkció: 
+	Attribútumok:
+		- id
+		- név - varchar
+
+Táblanév: NévjegyekFelhasználók kapcsolótábla
+Funkció: annak tárolása, hogy mely felhasználó melyik névjegykártyát rendelte a profiljához
+	Attribútumok:
+		- felhasználóid - number
+		- felhasználónév - varchar
+
+
+Táblanév: Értékelések
+Funkció: a névjegyekhez tartozó számbeli és szövegbeli értékelések tárolásához
+	Attribútumok:
+		- kommentId - azonosító
+		- felhasználó id
+		- értkelés - number
+		- vélemény - varchar
