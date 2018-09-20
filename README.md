@@ -2,49 +2,55 @@
 ### Névjegy kezelő aplikáció (Bicsák Dániel és Keszthelyi Máté)
 
 #### 1. Feladat szöveges leírása:
-> A feladat célja névjegyek kezelése. Lehetőség van a programban névjegyeket létrehozni, csoportosítani, frissíteni, törölni és keresni. /*TODO: Kiegészíteni*/
+> A feladat célja, hogy olyan szolgáltatást valósítson meg melyen keresztül a felhasználó böngészhet (vagy akár gyűjthet a profiljához kapcsolódóan) mindenféle kategóriájú cég/egyéni vállalkozó névjegykártyáját. A felhasználók más felhasználók kommentjeit olvashatják a névjegykártyához tartozó értékeléseket/kommenteket.
 
 #### A névjegy kezelő működése: /*Névjegy kezelő helyett az app neve*/
-> Bejelentkezés után láthatja a felhasználó a csoportjait, ezekben az elmentett névjegyeket. Egy-egy névjegyre kattintva frissítheti azt. Megjegyzéseket is fűzhet a névjegyhez, vagy e-mailes értesítést is állíthat be /*A tiédben is volt, gondolom követelmény. Jó így?*/.
+> Az alkalmazás profiljához kapcsolódóan (egyszerűen névjegyeket managelni, értékelni, és keresni) fontos törekedni az egyszerűségre. Az oldal használata regisztrációhoz kötött, bejelentkezés után lehet a funkcionalitást igénybe venni.
+A bejelentkezést követően a user kereshet az adatbázisban található névjegyek közül, vagy kezelheti a saját névjegyeit.
+A névjegy megtekintésekor minden esetben (legyen az a felhasználó által tárolt, vagy csak keresés eredményeképpen talált névjegy) lehetőség van értékelni a névjegyet (egy felhasználó egy névjegyet csak egyszer véleményezhet).
 
-#### 2. Funkcionális követelmények:
+#### 2. Nem funkcionális követelmények:
+	-topic:
+	description
+	-topic:
+	description
+
+#### 3. Funkcionális követelmények:
 	- Regisztráció:
         Teljes név, felhasználói név, e-mail és születési dátum megadásával.
 	- Bejelentkezés:
         Felhasználói név és jelszó megadásával.
 	- Névjegyek keresése:
         A névjegyek szűrése azok attribútumjai alapján.
-	- Névjegyek összehasonlítása:
-        Két névjegy attribútumjainak megjelenítése egymás mellé két hasábban.
 	- Névjegyek kommentelése:
         Kommenteket fűzhet a névjegyhez.
-	- Emailes értesítés:
-	Értesítést kérhet például születésnap előtt, vagy egyéni időpontban a névjegyről.
+	- Névjegyek értékelése:
+		Egy 5ös skálán értékelheti a felhasználó az adott névjegyet.
 
-#### 3. Felhasználói történetek: /*Ezt a szekciót majd tervezzük meg/találd ki*/
+#### 4. Felhasználói történetek: /*Ezt a szekciót majd tervezzük meg/találd ki*/
 
-  - Kölcsönzés:
-      A felhasználó filmet (filmeket) kiválasztva jelzi a foglalási kérelmét. Erről kap egy megerősítő e-mailt melyben található link 3 óráig érvényes. Amennyiben érvényesíti a foglalását (kifizeti) akkor megkapja a hozzáférést a filmhez e-mailben.
-  - Hosszabbítás:
-      A felhasználó a rendeléseim menüpont alatt kiválasztja az adott filmet és a hosszabbítani kívánt időtartamot. Ezután megnyomja az aktiválódott "Hosszabbít" gombot. Ezután fizetnie kell.
-  - Fizetés:
-      Fizetést kezelő oldalra irányít. A formot ki kell tölteni valid információval, ezután kap egy e-mailt a sikerességéről.
+  - Keresés:
+      A felhasználó névjegyeket kereshet szűrők, kulcsszavak beállításával.
+  - Saját névjegyek kezelése:
+      A felhasználó a saját elmentett névjegyeit törölheti, frissítheti.
+  - Értékelés:
+      A publikus névjegyek értékelhetők, 5-ös skálán értékelheti egy felhasználó a névjegyet.
       
-#### 4. Jogosultsági körök (lentről felfelé tartalmazás - superuser tudja amit az alatta lévő kettő):
+#### 5. Jogosultsági körök (lentről felfelé tartalmazás - superuser tudja amit az alatta lévő kettő):
   - Superuser:
       - Felhasználók kezelése
+	  - Adatbázisban lévő névjegyek kezelése
   - Adminsztrátor:
       - Filmek kezelése (CRUD műveletekkel)
       - Publikus megjegyzések moderálása
   - Felhasználó:
       - Új privát névjegy létrehozása
-      - Névjegy megosztása
+      - Névjegy kezelése
       - Névjegy kommentelése
-      - Névjegyek összehasonlítása /*Van értelme? Más ötlet?*/
       - Névjegyek keresése
       - Névjegyek csoportosítása
       - Saját névjegyek törlése
       
-#### 5. Adatbázis-terv:
+#### 6. Adatbázis-terv:
 
 ![alt text](https://github.com/Regulus93/alkfejl-movierent/blob/master/docs/database_plan.png) /*Majd megcsináljuk*/
