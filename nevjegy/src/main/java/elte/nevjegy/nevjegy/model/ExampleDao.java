@@ -13,6 +13,8 @@ public class ExampleDao {
                 return "Szia";
             case "en":
                 return "Hi";
+			case "it":
+                return "Ciao";
             case "fr":
                 return "Bonjour";
 
