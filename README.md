@@ -7,23 +7,23 @@
 > A feladat célja, hogy olyan szolgáltatást valósítson meg melyen keresztül a felhasználó böngészheti az adatbázisban található névjegykártyákat, gyűjtheti azokat a profiljához kapcsolódóan, kategória szerint rendezve.
 A felhasználók véleményezhetik a névjegykártyákat, és a hozzájuk kapcsolódó szolgáltatást. A felhasználók olvashatják egymás kommentjeit.
 
-#### A névjegy kezelő működése: /*Névjegy kezelő helyett az app neve*/
+#### A BCC működése: 
 > Az alkalmazás profiljához kapcsolódóan (egyszerűen névjegyeket managelni, értékelni, és keresni) fontos törekedni az egyszerűségre. Az oldal használata regisztrációhoz kötött, bejelentkezés után lehet a funkcionalitást igénybe venni.
 A bejelentkezést követően a user kereshet az adatbázisban található névjegyek közül, vagy kezelheti a saját névjegyeit.
 A névjegy megtekintésekor minden esetben (legyen az a felhasználó által tárolt, vagy csak keresés eredményeképpen talált névjegy) lehetőség van értékelni a névjegyet (egy felhasználó egy névjegyet csak egyszer véleményezhet).
 
 #### 2. Nem funkcionális követelmények:
 - Használhatósági követelmények:
- -- Legyen a felhasználó számára ergonomikus a webes frontend oldal
- -- Legyen az összes oldal 3 kattintáson keresztül elérhető
+	-- Legyen a felhasználó számára ergonomikus a webes frontend oldal
+	-- Legyen az összes oldal 3 kattintáson keresztül elérhető
 
 - Megbízhatósági követelmények:
- -- A megfelelő jogkörrel rendelkező felhasználók, csak a megfelelő adatokhoz férjenek hozzá/legyenek képesek módosítani
- -- Az alkalmazás hiba esetén egyértelműen fedje el/kezelje le a problémát
+	-- A megfelelő jogkörrel rendelkező felhasználók, csak a megfelelő adatokhoz férjenek hozzá/legyenek képesek módosítani
+	-- Az alkalmazás hiba esetén egyértelműen fedje el/kezelje le a problémát
 
 - Teljesítményi követelmények:
- -- Egy művelet se legyen 1500 ms-nál hosszabb
- -- Nagyméretű adatbázis esetén (táblánként 50 000 sor) is bírja a terhelést a szolgáltatás
+	-- Egy művelet se legyen 1500 ms-nál hosszabb
+	-- Nagyméretű adatbázis esetén (táblánként 50 000 sor) is bírja a terhelést a szolgáltatás
 
 #### 3. Funkcionális követelmények:
 	- Regisztráció:
