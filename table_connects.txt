@@ -1,0 +1,6 @@
+A táblák kapcsolatai egymás között:
+
+Business_Card [1] - [1] Category --> egy névjegykártyához egy kategória tartozhat
+User [1] - [sok] Business_Card --> egy felhasználó sok névjegykártyát "birtokolhat"
+Business_Card [1] - [sok] Feedback --> egy névjegykártyához sok vélemény tartozhat
+User [1] - Feedback [sok] --> egy felhasználóhoz sok feedback tartozhat

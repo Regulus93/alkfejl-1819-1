@@ -1,0 +1,45 @@
+Táblanév: Business_Card
+	Funkció: Reprezentálja a névjegy entitást, a névjegyen szereplő cég vagy vállalkozó nevével, a szolgáltatás helyével, és egyéb elérhetőségi adatokkal
+	
+	Attribútumok:
+		- ID 					- number (?)
+		- Business_Name 		- varchar
+		- Address 				- varchar
+		- Phone_numb 			- varchar
+		- Cat_id [idegenkulcs] 	- number
+
+
+Táblanév: User
+Funkció: az alkalmazást használó felhasználók tárolására
+
+	Attribútumok:
+		- Fullname 		 	- varchar
+		- Username		  	- varchar
+		- Password 			- varchar (rejtett) 
+		- Email	[kulcs]     - varchar
+
+Táblanév: BCard_User kapcsolótábla (ennek valószínűleg a JPA generál majd saját nevet ugye?)
+Funkció: annak tárolása, hogy mely felhasználó melyik névjegykártyát rendelte a profiljához
+	Attribútumok:
+		- User_ID - number
+		- BCard_ID - varchar
+		
+Táblanév: Category
+Funkció: 
+	Attribútumok:
+		- ID [kulcs]	- number
+		- Name 			- varchar
+
+Táblanév: Feedback
+Funkció: a névjegyekhez tartozó számbeli és szövegbeli értékelések tárolásához
+	Attribútumok:
+		- ID - azonosító
+		- Value - number
+		- Comment - varchar
+		
+Táblanév: Feedback_User kapcsolótábla (ennek valószínűleg a JPA generál majd saját nevet ugye?)
+Funkció: az értékelések és az értékelő felhasználó összekapcsolásához
+	Attribútumok:
+		- ID - azonosító
+		- Value - number
+		- Comment - varchar
