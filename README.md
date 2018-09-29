@@ -13,17 +13,17 @@ A bejelentkezést követően a user kereshet az adatbázisban található névje
 A névjegy megtekintésekor minden esetben (legyen az a felhasználó által tárolt, vagy csak keresés eredményeképpen talált névjegy) lehetőség van értékelni a névjegyet (egy felhasználó egy névjegyet csak egyszer véleményezhet).
 
 #### 2. Nem funkcionális követelmények:
-- Használhatósági követelmények:
-	-- Legyen a felhasználó számára ergonomikus a webes frontend oldal
-	-- Legyen az összes oldal 3 kattintáson keresztül elérhető
-
-- Megbízhatósági követelmények:
-	-- A megfelelő jogkörrel rendelkező felhasználók, csak a megfelelő adatokhoz férjenek hozzá/legyenek képesek módosítani
-	-- Az alkalmazás hiba esetén egyértelműen fedje el/kezelje le a problémát
-
-- Teljesítményi követelmények:
-	-- Egy művelet se legyen 1500 ms-nál hosszabb
-	-- Nagyméretű adatbázis esetén (táblánként 50 000 sor) is bírja a terhelést a szolgáltatás
+	- Használhatósági követelmények:
+        Legyen a felhasználó számára ergonomikus a webes frontend oldal
+	Legyen az összes oldal 3 kattintáson keresztül elérhető
+	
+	- Megbízhatósági követelmények:
+        A megfelelő jogkörrel rendelkező felhasználók, csak a megfelelő adatokhoz férjenek hozzá/legyenek képesek módosítani
+	Az alkalmazás hiba esetén egyértelműen fedje el/kezelje le a problémát
+	
+	- Teljesítményi követelmények:
+        Egy művelet se legyen 1500 ms-nál hosszabb
+	Nagyméretű adatbázis esetén (táblánként 50 000 sor) is bírja a terhelést a szolgáltatás
 
 #### 3. Funkcionális követelmények:
 	- Regisztráció:
