@@ -1,0 +1,24 @@
+USER route, profilhoz fûzõdõ dolgok
+user/Register - Regisztráció
+user/Login - Bejelentkezéshez
+user/Reminder - Jelszóemlékeztetõ (?)
+user/GetProfile - Profil lekérése
+user/UpdateProfile - Profil frissítése
+user/DeleteProfile - Saját profil törlése
+
+Belépés nélkül is látható felületek 
+BCC/public/GetAllBC - Minden névjegy lekérése - paraméterezés: Lehet szûrni saját névjegyre és kategóriára is
+BCC/public/{BCCID}/GetComments - Adott ID-jû névjegyhez való kommentek és értékelések lekérése
+
+Belépéshez kötött felületek
+BCC/CreateBC - Névjegy létrehozása
+BCC/DeleteBC - Névjegy törlése
+BCC/UpdateBC - Névjegy frissítése - RequestBody-ból megnézi az ID-t, azt frissíti
+BCC/SaveBC - Névjegy elmentése profilra
+BCC/{BCCID}/Comment - Adott ID-jû névjegyhez komment fûzése
+BCC/{BCCID}/Rate - Értékelés
+
+ADMIN route-ok
+admin/DeleteUser - felhasználó törlése
+admin/DeleteComment - Komment törlése
+admin/DeleteBC - Névjegy törlése
