@@ -6,12 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Users")
+@Table(name = "User")
 public class User extends BaseEntity {
 
     @Column(nullable = false)
@@ -19,7 +20,6 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String userName;
 
-    //TODO: transient needed?
     @Column(nullable = false)
     private String password;
 
@@ -30,4 +30,10 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @ManyToMany
+    @JoinTable
+    private List<BusinessCard> businessCard;
+
+    @OneToMany(mappedBy = "user")
+    private List<Feedback> feedbacks;
 }

@@ -4,15 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "BusinessCards")
+@Table(name = "BusinessCard")
 public class BusinessCard extends BaseEntity {
 
     @Column(nullable = false)
@@ -21,5 +20,14 @@ public class BusinessCard extends BaseEntity {
     private String address;
     @Column(nullable = false)
     private String phone;
+
+    @ManyToMany(mappedBy = "businessCard")
+    private List<User> user;
+
+    @ManyToOne
+    private Category category;
+
+    @OneToMany(mappedBy = "businessCard")
+    private List<Feedback> feedbacks;
 
 }
