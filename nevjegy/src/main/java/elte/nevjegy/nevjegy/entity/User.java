@@ -1,5 +1,6 @@
 package elte.nevjegy.nevjegy.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import elte.nevjegy.nevjegy.enumtype.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,8 +33,10 @@ public class User extends BaseEntity {
 
     @ManyToMany
     @JoinTable
+    @JsonIgnore
     private List<BusinessCard> businessCard;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Feedback> feedbacks;
 }

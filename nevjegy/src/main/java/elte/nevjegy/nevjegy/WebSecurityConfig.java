@@ -8,11 +8,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter  {
     protected void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
 
-        auth.inMemoryAuthentication()
-                .withUser("user").password("$2a$10$sorhq3rUu30gP.gxIGpvS.V5jeSTe.kZuV0uz7XQoW8d8vanz.lvq").roles("USER");
+        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .withUser("user").password("password").roles("USER");
     }
 
     @Bean
