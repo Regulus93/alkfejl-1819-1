@@ -1,0 +1,14 @@
+	BCC/<path to the route>:
+		Bejövő paraméterek:
+			-
+		Rövid leírás:
+			-
+		Pszeudó-leírás:
+			#1. lépés:
+				- DB-ből x repository-val kikeresni y-t
+			#2. lépés:
+				- ...
+			#3. lépés:
+				- ...
+		Response:
+			-
