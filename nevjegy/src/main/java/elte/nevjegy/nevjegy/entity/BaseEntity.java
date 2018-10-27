@@ -10,7 +10,7 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private int id;
 
     @Version
     private int version;
