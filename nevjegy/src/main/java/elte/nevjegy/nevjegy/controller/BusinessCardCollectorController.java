@@ -16,48 +16,48 @@ public class BusinessCardCollectorController {
     @Autowired
     BusinessCardCollectorService businessCardCollectorService;
 
-    @GetMapping("/public/GetAllBC")
+    @GetMapping("/GetAllBC")
     public List getAllBc() {
         return businessCardCollectorService.getAllBc();
     }
 
-    @GetMapping("/public/GetBCById")
+    @GetMapping("/GetBCById")
     public BusinessCard getBcById(
             @RequestParam int bcId) {
         return businessCardCollectorService.getBcById(bcId);
     }
 
-    @GetMapping("/public/GetFeedbacks/{bcId}")
+    @GetMapping("/GetFeedbacks/{bcId}")
     public List getFeedbacks(@PathVariable("bcId") int bcId) {
         return businessCardCollectorService.getFeedbacks(bcId);
     }
 
-    @PostMapping("/CreateBC")
+    @PostMapping("/user/CreateBC")
     public int createBusinessCard(
             @RequestBody BusinessCard businessCard){
         return businessCardCollectorService.createBusinessCard(businessCard);
     }
 
-    @PutMapping("/UpdateBC")
+    @PutMapping("/user/UpdateBC")
     public int updateBusinessCard(
             @RequestBody BusinessCard businessCard){
         return businessCardCollectorService.updateBusinessCard(businessCard);
     }
 
-    @DeleteMapping("/DeleteBC")
+    @DeleteMapping("/user/DeleteBC")
     public void deleteBusinessCard(
             @RequestBody int bcId){
         businessCardCollectorService.deleteBusinessCard(bcId);
     }
 
-    @PostMapping("/CollectBC")
+    @PostMapping("/user/CollectBC")
     public void collectBusinessCard(
             @RequestParam User user,
             @RequestBody int bcId){
         businessCardCollectorService.collectBusinessCard(bcId, user);
     }
 
-    @PostMapping("/addFeedback")
+    @PostMapping("/user/addFeedback")
     public void collectBusinessCard(
             @RequestParam Feedback feedback,
             @RequestBody int bcId){
