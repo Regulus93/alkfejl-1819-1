@@ -5,6 +5,9 @@ import elte.nevjegy.nevjegy.enumtype.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +18,10 @@ import java.util.List;
 @Entity
 @Table(name = "User")
 public class User extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
 
     @Column(nullable = false)
     private String fullName;

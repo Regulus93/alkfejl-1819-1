@@ -44,6 +44,7 @@ public class UserService implements UserDetailsService {
     public User register(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(UserRole.USER);
+        userRepository.save(user);
         return user;
     }
 }
