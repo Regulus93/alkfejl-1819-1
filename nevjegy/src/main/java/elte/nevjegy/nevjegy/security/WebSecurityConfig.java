@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,20 +29,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable() // H2 Console
                 .authorizeRequests()
-                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
-                .antMatchers("/h2/**", "/users/register")
+                .antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/BCC/admin/**").hasAnyRole("ADMIN")
+                .antMatchers("/h2/**", "/users/register", "/BCC/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic()
+                .logout().clearAuthentication(true)
+                .logoutUrl("/users/asd1")
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .permitAll()
                 .and()
+                //.httpBasic()
+//                .and()
                 .headers()
                 .frameOptions()
-                .disable() // H2 Console
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .disable(); // H2 Console
     }
 
     @Autowired
