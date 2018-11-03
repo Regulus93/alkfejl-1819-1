@@ -7,6 +7,7 @@ import elte.nevjegy.nevjegy.repository.BusinessCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.security.Principal;
 import java.util.List;
 
 @Repository
@@ -49,5 +50,9 @@ public class BusinessCardCollectorDao {
         if (bc != null) {
             bc.getFeedbacks().add(feedback);
         }
+    }
+
+    public void deleteBusinessCardAdmin(int bcId) {
+        businessCardRepository.deleteById(bcId);
     }
 }

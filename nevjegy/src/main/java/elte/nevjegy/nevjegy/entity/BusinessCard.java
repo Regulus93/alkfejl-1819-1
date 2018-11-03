@@ -36,4 +36,7 @@ public class BusinessCard extends BaseEntity {
     @OneToMany(mappedBy = "businessCard")
     private List<Feedback> feedbacks;
 
+    @ManyToOne
+    @Column(nullable = false)
+    private User Owner;
 }

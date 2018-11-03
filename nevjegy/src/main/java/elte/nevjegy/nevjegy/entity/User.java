@@ -44,6 +44,9 @@ public class User extends BaseEntity {
     @JsonIgnore
     private List<BusinessCard> businessCard;
 
+    @OneToMany
+    private List<BusinessCard> ownedBusinessCard;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Feedback> feedbacks;

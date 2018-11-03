@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Feedback extends BaseEntity {
 
     @Column(nullable = false)
-    private int rateValue;
+    private Integer rateValue;
+
     private String text;
 
     @ManyToOne

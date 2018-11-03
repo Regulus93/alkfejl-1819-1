@@ -4,7 +4,10 @@ import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
 import elte.nevjegy.nevjegy.entity.User;
 import elte.nevjegy.nevjegy.model.BusinessCardCollectorDao;
+import elte.nevjegy.nevjegy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,10 @@ import java.util.List;
 public class BusinessCardCollectorService {
 
     @Autowired
-    BusinessCardCollectorDao businessCardCollectorDao;
+    private UserRepository userRepository;
+
+    @Autowired
+    private BusinessCardCollectorDao businessCardCollectorDao;
 
     public List getAllBc() {
         return businessCardCollectorDao.getAllBc();
@@ -36,6 +42,7 @@ public class BusinessCardCollectorService {
     }
 
     public void deleteBusinessCard(int bcId){
+
         businessCardCollectorDao.deleteBusinessCard(bcId);
     }
 
@@ -45,5 +52,9 @@ public class BusinessCardCollectorService {
 
     public void addFeedback(int bcId, Feedback feedback){
         businessCardCollectorDao.addFeedBack(bcId, feedback);
+    }
+
+    public void deleteBusinessCardAdmin(int bcId) {
+        businessCardCollectorDao.deleteBusinessCardAdmin(bcId);
     }
 }
