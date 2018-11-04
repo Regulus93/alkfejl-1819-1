@@ -41,5 +41,6 @@ public class BusinessCard{
     private List<Feedback> feedbacks;
 
     @ManyToOne
+    @JsonIgnore
     private User owner;
 }
