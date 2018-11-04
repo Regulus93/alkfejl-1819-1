@@ -46,15 +46,20 @@ public class BusinessCardCollectorService {
         businessCardCollectorDao.deleteBusinessCard(bcId);
     }
 
-    public void collectBusinessCard(int bcId, User user){
-        businessCardCollectorDao.collectBusinessCard(bcId, user);
+    public BusinessCard collectBusinessCard(int bcId, User user){
+        return businessCardCollectorDao.collectBusinessCard(bcId, user);
     }
 
-    public void addFeedback(int bcId, Feedback feedback){
-        businessCardCollectorDao.addFeedBack(bcId, feedback);
+    public BusinessCard dropBusinessCard(int bcId, User user){
+        return businessCardCollectorDao.dropBusinessCard(bcId, user);
     }
 
-    public void deleteBusinessCardAdmin(int bcId) {
-        businessCardCollectorDao.deleteBusinessCardAdmin(bcId);
+    public void addFeedback(int bcId, Feedback feedback, String username){
+        businessCardCollectorDao.addFeedback(bcId, feedback, username);
     }
+
+    public void removeFeedback(int id){
+        businessCardCollectorDao.removeFeedback(id);
+    }
+
 }

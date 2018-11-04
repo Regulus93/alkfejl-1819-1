@@ -5,13 +5,16 @@ import elte.nevjegy.nevjegy.entity.Feedback;
 import elte.nevjegy.nevjegy.entity.User;
 import elte.nevjegy.nevjegy.repository.UserRepository;
 import elte.nevjegy.nevjegy.service.BusinessCardCollectorService;
+import javafx.scene.layout.Background;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -51,6 +54,7 @@ public class BusinessCardCollectorController {
         return businessCardCollectorService.createBusinessCard(businessCard);
     }
 
+    //TODO: User own feedback it or user role is admin
     @PutMapping("user/updateBC")
     public int updateBusinessCard(
             @RequestBody BusinessCard businessCard) {
@@ -64,18 +68,45 @@ public class BusinessCardCollectorController {
     }
 
     @PostMapping("user/collectBC")
-    public void collectBusinessCard(@RequestParam int bcId) {
+    public ResponseEntity collectBusinessCard(@RequestParam int bcId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        businessCardCollectorService.collectBusinessCard(
-                bcId, userRepository.findByUserName(auth.getPrincipal().toString()).get());
+        User user = userRepository.findByUserName(auth.getName()).get();
+        BusinessCard collectedBc = businessCardCollectorService.collectBusinessCard(
+                bcId, user);
+        if(collectedBc != null){
+            return ResponseEntity.ok(collectedBc);
+        } else {
+            return ResponseEntity.badRequest().body("Already collected or invalid BC!");
+        }
+
+    }
+
+    @PostMapping("user/dropBC")
+    public ResponseEntity dropBusinessCard(@RequestParam int bcId){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUserName(auth.getName()).get();
+        BusinessCard droppedBusinessCard = businessCardCollectorService.dropBusinessCard(
+                bcId, user);
+
+        if(droppedBusinessCard != null){
+            return ResponseEntity.ok(droppedBusinessCard);
+        } else {
+            return ResponseEntity.badRequest().body("Not collected or invalid BC!");
+        }
     }
 
     @PostMapping("user/addFeedback")
     public void addFeedback(
             @RequestBody Feedback feedback,
-            @RequestParam int bcId) {
+            @RequestParam int bcId, Principal principal) {
 
         if (feedback.getRateValue() == null) throw new InvalidParameterException("Rate value must be not null");
-        businessCardCollectorService.addFeedback(bcId, feedback);
+        businessCardCollectorService.addFeedback(bcId, feedback, principal.getName());
+    }
+
+    //TODO: User own feedback it or user role is admin
+    @PostMapping("user/removeFeedback")
+    public void removeFeedback(@RequestParam int id){
+        businessCardCollectorService.removeFeedback(id);
     }
 }

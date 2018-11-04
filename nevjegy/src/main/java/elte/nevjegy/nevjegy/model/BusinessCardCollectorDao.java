@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
-import java.security.Principal;
 import java.util.List;
 
 @Repository
@@ -60,23 +59,46 @@ public class BusinessCardCollectorDao {
         businessCardRepository.deleteById(bcId);
     }
 
-    public void collectBusinessCard(int bcId, User user) {
-        BusinessCard bc = businessCardRepository.findById(bcId).orElse(null);
-        if (bc != null) {
-            user.getBusinessCard().add(bc);
+    public BusinessCard collectBusinessCard(int bcId, User user) {
+        BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
+        List<BusinessCard> cards = user.getBusinessCard();
+
+        if(!cards.contains(bc)){
+            cards.add(bc);
+            user.setBusinessCard(cards);
+            userRepository.save(user);
+            return bc;
+        } else {
+            return null;
         }
+
     }
 
-    public void addFeedBack(int bcId, Feedback feedback) {
-        BusinessCard bc = businessCardRepository.findById(bcId).orElse(null);
+    public BusinessCard dropBusinessCard(int bcId, User user) {
+        BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
+        List<BusinessCard> cards = user.getBusinessCard();
+
+        if(cards.contains(bc)){
+            cards.remove(bc);
+            user.setBusinessCard(cards);
+            userRepository.save(user);
+            return bc;
+        } else {
+            return null;
+        }
+
+    }
+
+    public void addFeedback(int bcId, Feedback feedback, String username) {
+        BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        feedback.setUser(userRepository.findById(1).get());
+        User u = userRepository.findByUserName(username).get();
+        feedback.setUser(u);
         feedback.setBusinessCard(bc);
-        feedback.setId(999999999);
         feedbackRepository.save(feedback);
     }
 
-    public void deleteBusinessCardAdmin(int bcId) {
-        businessCardRepository.deleteById(bcId);
+    public void removeFeedback(int id){
+        feedbackRepository.deleteById(id);
     }
 }
