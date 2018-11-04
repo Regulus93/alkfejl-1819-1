@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -45,15 +46,16 @@ public class UserController {
     }
 
     @PutMapping("updateProfile")
-    public void updateProfile(@RequestBody User updateUser) {
-        User user = userRepository.findByUserName(updateUser.getUserName())
+    public void updateProfile(@RequestBody User updateUser, Principal principal) {
+        User user = userRepository.findByUserName(principal.getName())
                 .orElseThrow(() -> new RuntimeException("No User found with the given id!"));
 
         if(updateUser.getUserName() != null) user.setUserName(updateUser.getUserName());
         if(updateUser.getEmail() != null) user.setEmail(updateUser.getEmail());
         if(updateUser.getFullName() != null) user.setFullName(updateUser.getFullName());
+        if(updateUser.getPassword() != null) user.setFullName(updateUser.getPassword());
 
-        userRepository.save(user);
+        userService.updateProfile(user);
     }
 
     @DeleteMapping("deleteProfile")

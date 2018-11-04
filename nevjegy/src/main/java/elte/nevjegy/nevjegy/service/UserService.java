@@ -47,4 +47,10 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return user;
     }
+
+    public void updateProfile(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(UserRole.ROLE_USER);
+        userRepository.save(user);
+    }
 }
