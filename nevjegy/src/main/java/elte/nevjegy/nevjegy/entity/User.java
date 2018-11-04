@@ -14,11 +14,16 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "User")
-public class User extends BaseEntity {
+@SequenceGenerator(name="usergen", sequenceName = "usergen", initialValue = 6)
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "usergen")
+    private Integer id;
+
+    @Version
+    private int version;
 
     @Column(nullable = false)
     private String fullName;

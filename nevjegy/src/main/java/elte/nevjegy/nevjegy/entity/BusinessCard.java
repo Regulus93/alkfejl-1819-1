@@ -13,11 +13,15 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "BusinessCard")
-public class BusinessCard extends BaseEntity {
+@SequenceGenerator(name="bcgen", sequenceName = "bcgen", initialValue = 6)
+public class BusinessCard{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "bcgen")
+    private Integer id;
+
+    @Version
+    private int version;
 
     @Column(nullable = false)
     private String name;
