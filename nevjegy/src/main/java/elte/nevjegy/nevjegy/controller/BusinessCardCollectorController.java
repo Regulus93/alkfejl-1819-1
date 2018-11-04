@@ -24,7 +24,7 @@ public class BusinessCardCollectorController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/GetAllBC")
+    @GetMapping("getAllBC")
     public List getAllBc() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -32,18 +32,18 @@ public class BusinessCardCollectorController {
         return businessCardCollectorService.getAllBc();
     }
 
-    @GetMapping("/GetBCById")
+    @GetMapping("getBCById")
     public BusinessCard getBcById(
             @RequestParam int bcId) {
         return businessCardCollectorService.getBcById(bcId);
     }
 
-    @GetMapping("/GetFeedbacks/{bcId}")
+    @GetMapping("getFeedbacks/{bcId}")
     public List getFeedbacks(@PathVariable("bcId") int bcId) {
         return businessCardCollectorService.getFeedbacks(bcId);
     }
 
-    @PostMapping("/user/CreateBC")
+    @PostMapping("user/createBC")
     public int createBusinessCard(
             @RequestBody BusinessCard businessCard) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -51,26 +51,26 @@ public class BusinessCardCollectorController {
         return businessCardCollectorService.createBusinessCard(businessCard);
     }
 
-    @PutMapping("/user/UpdateBC")
+    @PutMapping("user/updateBC")
     public int updateBusinessCard(
             @RequestBody BusinessCard businessCard) {
         return businessCardCollectorService.updateBusinessCard(businessCard);
     }
 
-    @DeleteMapping("/user/DeleteBC")
+    @DeleteMapping("user/deleteBC")
     public void deleteBusinessCard(
             @RequestParam int bcId) {
         businessCardCollectorService.deleteBusinessCard(bcId);
     }
 
-    @PostMapping("/user/CollectBC")
+    @PostMapping("user/collectBC")
     public void collectBusinessCard(@RequestParam int bcId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         businessCardCollectorService.collectBusinessCard(
                 bcId, userRepository.findByUserName(auth.getPrincipal().toString()).get());
     }
 
-    @PostMapping("/user/addFeedback")
+    @PostMapping("user/addFeedback")
     public void addFeedback(
             @RequestBody Feedback feedback,
             @RequestParam int bcId) {

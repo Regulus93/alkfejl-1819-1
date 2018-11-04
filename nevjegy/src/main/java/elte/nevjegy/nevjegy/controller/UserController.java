@@ -56,8 +56,8 @@ public class UserController {
         userRepository.save(user);
     }
 
-    @DeleteMapping("deleteUser")
-    public void deleteUser(@RequestParam("Id") int id){
+    @DeleteMapping("deleteProfile")
+    public void deleteUser(@RequestParam("id") int id){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(userRepository.findByUserName(auth.getPrincipal().toString()).get().getRole() == UserRole.ROLE_USER)
             id = userRepository.findByUserName(auth.getPrincipal().toString()).get().getId();
