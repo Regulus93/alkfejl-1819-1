@@ -4,7 +4,11 @@ import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
 import elte.nevjegy.nevjegy.entity.User;
 import elte.nevjegy.nevjegy.repository.BusinessCardRepository;
+import elte.nevjegy.nevjegy.repository.FeedbackRepository;
+import elte.nevjegy.nevjegy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import java.security.Principal;
@@ -12,6 +16,12 @@ import java.util.List;
 
 @Repository
 public class BusinessCardCollectorDao {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private FeedbackRepository feedbackRepository;
 
     @Autowired
     private BusinessCardRepository businessCardRepository;
@@ -35,6 +45,8 @@ public class BusinessCardCollectorDao {
     }
 
     public void deleteBusinessCard(int bcId) {
+        List<Feedback> feedbacks = businessCardRepository.findById(bcId).get().getFeedbacks();
+        feedbackRepository.deleteAll(feedbacks);
         businessCardRepository.deleteById(bcId);
     }
 
@@ -47,9 +59,11 @@ public class BusinessCardCollectorDao {
 
     public void addFeedBack(int bcId, Feedback feedback) {
         BusinessCard bc = businessCardRepository.findById(bcId).orElse(null);
-        if (bc != null) {
-            bc.getFeedbacks().add(feedback);
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        feedback.setUser(userRepository.findById(1).get());
+        feedback.setBusinessCard(bc);
+        feedback.setId(999999999);
+        feedbackRepository.save(feedback);
     }
 
     public void deleteBusinessCardAdmin(int bcId) {

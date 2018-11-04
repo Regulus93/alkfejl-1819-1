@@ -14,6 +14,10 @@ import javax.persistence.*;
 @Table(name = "Feedback")
 public class Feedback extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+
     @Column(nullable = false)
     private Integer rateValue;
 

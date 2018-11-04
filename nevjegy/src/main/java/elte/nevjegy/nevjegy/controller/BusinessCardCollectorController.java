@@ -47,7 +47,7 @@ public class BusinessCardCollectorController {
     public int createBusinessCard(
             @RequestBody BusinessCard businessCard) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        businessCard.setOwner(userRepository.findByUserName(auth.getPrincipal().toString()).get());
+        businessCard.setOwner(userRepository.findById(1).get());
         return businessCardCollectorService.createBusinessCard(businessCard);
     }
 
@@ -59,23 +59,23 @@ public class BusinessCardCollectorController {
 
     @DeleteMapping("/user/DeleteBC")
     public void deleteBusinessCard(
-            @RequestBody int bcId) {
+            @RequestParam int bcId) {
         businessCardCollectorService.deleteBusinessCard(bcId);
     }
 
     @PostMapping("/user/CollectBC")
-    public void collectBusinessCard(
-            @RequestParam User user,
-            @RequestBody int bcId) {
-        businessCardCollectorService.collectBusinessCard(bcId, user);
+    public void collectBusinessCard(@RequestParam int bcId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        businessCardCollectorService.collectBusinessCard(
+                bcId, userRepository.findByUserName(auth.getPrincipal().toString()).get());
     }
 
     @PostMapping("/user/addFeedback")
     public void addFeedback(
-            @RequestParam Feedback feedback,
-            @RequestBody int bcId) {
+            @RequestBody Feedback feedback,
+            @RequestParam int bcId) {
 
-        if(feedback.getRateValue() != null) throw new InvalidParameterException("Rate value must be not null");
+        if (feedback.getRateValue() == null) throw new InvalidParameterException("Rate value must be not null");
         businessCardCollectorService.addFeedback(bcId, feedback);
     }
 }

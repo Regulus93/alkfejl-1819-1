@@ -29,8 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable() // H2 Console
                 .authorizeRequests()
-                .antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN")
-                .antMatchers("/BCC/admin/**").hasAnyRole("ADMIN")
+                //.antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN")
+                //.antMatchers("/BCC/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/h2/**", "/users/register", "/BCC/**")
                 .permitAll()
                 .anyRequest()
