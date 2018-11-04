@@ -37,6 +37,5 @@ public class BusinessCard extends BaseEntity {
     private List<Feedback> feedbacks;
 
     @ManyToOne
-    @Column(nullable = false)
-    private User Owner;
+    private User owner;
 }

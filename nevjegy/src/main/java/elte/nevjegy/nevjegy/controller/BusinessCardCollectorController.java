@@ -1,6 +1,5 @@
 package elte.nevjegy.nevjegy.controller;
 
-import com.sun.tools.sjavac.PubApiExtractor;
 import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
 import elte.nevjegy.nevjegy.entity.User;
@@ -27,6 +26,9 @@ public class BusinessCardCollectorController {
 
     @GetMapping("/GetAllBC")
     public List getAllBc() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getPrincipal().toString());
         return businessCardCollectorService.getAllBc();
     }
 
