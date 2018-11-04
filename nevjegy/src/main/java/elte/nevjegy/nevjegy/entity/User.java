@@ -47,6 +47,7 @@ public class User {
     private List<BusinessCard> businessCard;
 
     @OneToMany(mappedBy = "owner")
+    @JsonIgnore
     private List<BusinessCard> ownedBusinessCard;
 
     @OneToMany(mappedBy = "user")
