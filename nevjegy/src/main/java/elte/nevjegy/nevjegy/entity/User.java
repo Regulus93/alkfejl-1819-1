@@ -5,9 +5,6 @@ import elte.nevjegy.nevjegy.enumtype.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.util.List;
@@ -39,8 +36,8 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany
-    @JoinTable
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinTable(joinColumns=@JoinColumn(name = "USER_ID"), inverseJoinColumns=@JoinColumn(name = "BUSINESS_CARD_ID"))
     @JsonIgnore
     private List<BusinessCard> businessCard;
 

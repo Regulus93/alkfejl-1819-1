@@ -26,14 +26,14 @@ public class BusinessCard extends BaseEntity {
     @Column(nullable = false)
     private String phone;
 
-    @ManyToMany(mappedBy = "businessCard")
+    @ManyToMany(mappedBy = "businessCard", cascade={CascadeType.PERSIST, CascadeType.DETACH})
     @JsonIgnore
     private List<User> user;
 
     @ManyToOne
     private Category category;
 
-    @OneToMany(mappedBy = "businessCard")
+    @OneToMany(mappedBy = "businessCard", cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
 
     @ManyToOne

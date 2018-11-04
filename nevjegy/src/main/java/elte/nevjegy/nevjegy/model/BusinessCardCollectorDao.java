@@ -18,7 +18,7 @@ import java.util.List;
 public class BusinessCardCollectorDao {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private FeedbackRepository feedbackRepository;
@@ -45,8 +45,18 @@ public class BusinessCardCollectorDao {
     }
 
     public void deleteBusinessCard(int bcId) {
-        List<Feedback> feedbacks = businessCardRepository.findById(bcId).get().getFeedbacks();
+        BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
+
+        List<Feedback> feedbacks = bc.getFeedbacks();
         feedbackRepository.deleteAll(feedbacks);
+
+        List<User> users = bc.getUser();
+        for (User u : users){
+            List<BusinessCard> userCards = u.getBusinessCard();
+            userCards.remove(bc);
+            userRepository.save(u);
+        }
+
         businessCardRepository.deleteById(bcId);
     }
 
