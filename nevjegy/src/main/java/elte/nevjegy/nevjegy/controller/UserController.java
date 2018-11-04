@@ -52,6 +52,8 @@ public class UserController {
         if(updateUser.getUserName() != null) user.setUserName(updateUser.getUserName());
         if(updateUser.getEmail() != null) user.setEmail(updateUser.getEmail());
         if(updateUser.getFullName() != null) user.setFullName(updateUser.getFullName());
+
+        userRepository.save(user);
     }
 
     @DeleteMapping("deleteUser")
@@ -66,6 +68,7 @@ public class UserController {
     public void changeUserRole(@RequestBody User updateUser){
         User user = userRepository.findByUserName(updateUser.getUserName()).get();
         user.setRole(updateUser.getRole());
+        userRepository.save(user);
     }
 
 
