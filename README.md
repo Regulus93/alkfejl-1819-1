@@ -78,7 +78,7 @@ A névjegy megtekintésekor minden esetben (legyen az a felhasználó által tá
 		- RESTLET API tesztelő
   
 #### 2.3. Adatbázis-terv:
-![alt text](https://github.com/Regulus93/alkfejl-1819-1/docs/db/db_diagram.png)
+![alt text](https://github.com/Regulus93/alkfejl-1819-1/develop/docs/db/db_diagram.png)
 
 #### 2.4. Alkalmazott könyvtárstruktúra:
 	
@@ -191,4 +191,4 @@ A névjegy megtekintésekor minden esetben (legyen az a felhasználó által tá
 				Kimeneti paraméter: módosított felhasználó ResponseEntity-ben
 				
 Példa a getBCById endpoint működésére:
-![alt text](https://github.com/Regulus93/alkfejl-1819-1/docs/endpoints/szekvenciadiagram.png)
+![alt text](https://github.com/Regulus93/alkfejl-1819-1/develop/docs/endpoints/szekvenciadiagram.png)
