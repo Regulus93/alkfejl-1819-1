@@ -108,7 +108,7 @@ public class BusinessCardCollectorController {
         return ResponseEntity.ok(businessCardCollectorService.addFeedback(bcId, feedback));
     }
 
-    @PostMapping("user/removeFeedback")
+    @DeleteMapping("user/removeFeedback")
     public ResponseEntity removeFeedback(@RequestParam int id){
         Feedback removedFeedback = businessCardCollectorService.removeFeedback(id);
         if(removedFeedback != null){
