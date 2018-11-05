@@ -4,7 +4,6 @@ import elte.nevjegy.nevjegy.entity.User;
 import elte.nevjegy.nevjegy.enumtype.UserRole;
 import elte.nevjegy.nevjegy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +18,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -39,23 +38,5 @@ public class UserService implements UserDetailsService {
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
-    }
-
-    public User register(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.ROLE_USER);
-        userRepository.save(user);
-        return user;
-    }
-
-    public void updateProfile(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.ROLE_USER);
-        userRepository.save(user);
-    }
-
-    public void deleteProfile(int id){
-
-        userRepository.save(user);
     }
 }
