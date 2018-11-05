@@ -14,8 +14,8 @@ INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALU
 INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (2, 1, 'Admin1', 'admin1', '$2a$10$sorhq3rUu30gP.gxIGpvS.V5jeSTe.kZuV0uz7XQoW8d8vanz.lvq','ROLE_ADMIN', 'admin1@bcc.com');
 
 INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (3, 1, 'Dummy User1', 'usr1', '$2a$10$sorhq3rUu30gP.gxIGpvS.V5jeSTe.kZuV0uz7XQoW8d8vanz.lvq','ROLE_USER', 'usr1@bcc.com');
-INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (4, 1, 'Dummy User2', 'usr2', '123456','ROLE_USER', 'usr2@bcc.com');
-INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (5, 1, 'Dummy User3', 'usr3', '123456','ROLE_USER', 'usr3@bcc.com');
+INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (4, 1, 'Dummy User2', 'usr2', '$2a$10$sorhq3rUu30gP.gxIGpvS.V5jeSTe.kZuV0uz7XQoW8d8vanz.lvq','ROLE_USER', 'usr2@bcc.com');
+INSERT INTO USER (ID, VERSION, FULL_NAME, USER_NAME, PASSWORD, ROLE, EMAIL) VALUES (5, 1, 'Dummy User3', 'usr3', '$2a$10$sorhq3rUu30gP.gxIGpvS.V5jeSTe.kZuV0uz7XQoW8d8vanz.lvq','ROLE_USER', 'usr3@bcc.com');
 
 ------------------------------------------------------
 
