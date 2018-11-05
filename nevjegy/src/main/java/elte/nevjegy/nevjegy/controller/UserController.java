@@ -1,24 +1,17 @@
 package elte.nevjegy.nevjegy.controller;
 
 import elte.nevjegy.nevjegy.entity.User;
-import elte.nevjegy.nevjegy.repository.UserRepository;
 import elte.nevjegy.nevjegy.service.UserDetailsServiceImpl;
-import elte.nevjegy.nevjegy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsServiceImpl userService;
 
     @PostMapping("register")
     public ResponseEntity<User> register(@RequestBody User user) {

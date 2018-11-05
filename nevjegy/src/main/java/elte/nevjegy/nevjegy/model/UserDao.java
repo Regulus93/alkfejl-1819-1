@@ -28,10 +28,7 @@ public class UserDao {
     @Autowired
     private FeedbackRepository feedbackRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
-    public User register(User user){
+    public User register(User user, BCryptPasswordEncoder passwordEncoder){
         Optional<User> optionalUser = userRepository.findByUserName(user.getUserName());
 
         if(optionalUser.isPresent()){
@@ -43,19 +40,18 @@ public class UserDao {
         }
     }
 
-    public User updateProfile(User updateUser){
+    public User updateProfile(User updateUser, BCryptPasswordEncoder passwordEncoder){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         User currentUser = userRepository.findByUserName(auth.getName())
                 .orElseThrow(() -> new RuntimeException("No User found with the given id!"));
 
-        if(updateUser.getUserName() != null) currentUser.setUserName(updateUser.getUserName());
         if(updateUser.getEmail() != null) currentUser.setEmail(updateUser.getEmail());
         if(updateUser.getFullName() != null) currentUser.setFullName(updateUser.getFullName());
         if(updateUser.getPassword() != null) currentUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
         updateUser.setRole(UserRole.ROLE_USER);
 
-        return userRepository.save(updateUser);
+        return userRepository.save(currentUser);
     }
 
     public User deleteProfile(int id){
@@ -82,8 +78,7 @@ public class UserDao {
     }
 
     public User changeUserRole(User updateUser) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUserName(auth.getName()).orElseThrow(() -> new RuntimeException("No User found with the given id!"));
+        User user = userRepository.findByUserName(updateUser.getUserName()).orElseThrow(() -> new RuntimeException("No User found with the given id!"));
         user.setRole(updateUser.getRole());
         return userRepository.save(user);
     }
