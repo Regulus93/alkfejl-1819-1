@@ -1,0 +1,60 @@
+/BCC
+	[GET] getAllBC
+	[GET] getBCById?bcId=2
+	[GET] getFeedbacks/{bcId}
+	[POST] user/createBC
+		{
+			"id":6,
+			"version":1,
+			"name": "Do you want to be good repairman?",
+			"address": "USA",
+			"phone": "+2251231913",
+			"category": {
+				"id": 2
+			}
+		}
+	[PUT] user/updateBC
+		{
+			"id":1,
+			"version":3,
+			"name": "Do you want to be?",
+			"address": "USA",
+			"phone": "+2251231913",
+			"category": {
+				"id": 1
+			}
+		}
+	[DEL] user/deleteBC?bcId=2
+	[POST] collectBC?bcId=5
+	[POST] dropBC?bcId=5
+	[POST] user/addFeedback
+        {
+          	"rateValue": 3,
+            "text": "IMAHERE"
+        }
+	[DEL] user/removeFeedback?id=3
+	
+/users
+	[POST] register
+		{
+			"fullName": "Dummy User5",
+			"userName": "usr5",
+			"password": "123456",
+			"email": "usr5@bcc.com"
+		}
+	[GET] users
+	[GET] getProfile
+	[PUT] updateProfile
+		{
+			"version":2,
+			"fullName": "Modified User",
+			"userName": "modusr1",
+			"password": "123456",
+			"email": "modusr1@bcc.com"
+		}
+	[DEL] deleteUser?id=2
+	[PUT] superuser/changeUserRole
+		{
+		"userName": "usr1",
+		"role": "ROLE_ADMIN"
+		}
