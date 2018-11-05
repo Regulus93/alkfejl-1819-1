@@ -1,6 +1,6 @@
 package elte.nevjegy.nevjegy.security;
 
-import elte.nevjegy.nevjegy.service.UserService;
+import elte.nevjegy.nevjegy.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,21 +27,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable() // H2 Console
                 .authorizeRequests()
-                //.antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN")
-                //.antMatchers("/BCC/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/h2/**", "/users/register", "/BCC/**", "/**")
-                .permitAll()
+                .antMatchers("/users/superuser/**").hasRole("SUPERUSER")
+                .antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN", "SUPERUSER")
+                .antMatchers("/users/register").permitAll()
+                .antMatchers("/users/**").hasAnyRole("USER","ADMIN", "SUPERUSER")
+                .antMatchers("/h2/**", "/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .logout().clearAuthentication(true)
-                .logoutUrl("/users/asd1")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .permitAll()
                 .and()
-                //.httpBasic()
-//                .and()
+                .httpBasic()
+                .and()
                 .headers()
                 .frameOptions()
                 .disable(); // H2 Console
@@ -59,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider
                 = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
+        authProvider.setUserDetailsService(userDetailsServiceImpl);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
