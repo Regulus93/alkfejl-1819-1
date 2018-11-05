@@ -16,9 +16,6 @@ import java.util.List;
 public class BusinessCardCollectorService {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private BusinessCardCollectorDao businessCardCollectorDao;
 
     public List getAllBc() {
@@ -33,33 +30,32 @@ public class BusinessCardCollectorService {
         return businessCardCollectorDao.getFeedbacks(bcId);
     }
 
-    public int createBusinessCard(BusinessCard businessCard){
+    public BusinessCard createBusinessCard(BusinessCard businessCard){
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public int updateBusinessCard(BusinessCard businessCard){
+    public BusinessCard updateBusinessCard(BusinessCard businessCard){
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public void deleteBusinessCard(int bcId){
-
-        businessCardCollectorDao.deleteBusinessCard(bcId);
+    public BusinessCard deleteBusinessCard(int bcId){
+        return businessCardCollectorDao.deleteBusinessCard(bcId);
     }
 
-    public BusinessCard collectBusinessCard(int bcId, User user){
-        return businessCardCollectorDao.collectBusinessCard(bcId, user);
+    public BusinessCard collectBusinessCard(int bcId){
+        return businessCardCollectorDao.collectBusinessCard(bcId);
     }
 
-    public BusinessCard dropBusinessCard(int bcId, User user){
-        return businessCardCollectorDao.dropBusinessCard(bcId, user);
+    public BusinessCard dropBusinessCard(int bcId){
+        return businessCardCollectorDao.dropBusinessCard(bcId);
     }
 
-    public void addFeedback(int bcId, Feedback feedback, String username){
-        businessCardCollectorDao.addFeedback(bcId, feedback, username);
+    public Feedback addFeedback(int bcId, Feedback feedback){
+        return businessCardCollectorDao.addFeedback(bcId, feedback);
     }
 
-    public void removeFeedback(int id){
-        businessCardCollectorDao.removeFeedback(id);
+    public Feedback removeFeedback(int id){
+        return businessCardCollectorDao.removeFeedback(id);
     }
 
 }

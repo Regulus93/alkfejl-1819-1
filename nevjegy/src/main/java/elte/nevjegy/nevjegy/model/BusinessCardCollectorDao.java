@@ -3,6 +3,7 @@ package elte.nevjegy.nevjegy.model;
 import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
 import elte.nevjegy.nevjegy.entity.User;
+import elte.nevjegy.nevjegy.enumtype.UserRole;
 import elte.nevjegy.nevjegy.repository.BusinessCardRepository;
 import elte.nevjegy.nevjegy.repository.FeedbackRepository;
 import elte.nevjegy.nevjegy.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BusinessCardCollectorDao {
@@ -39,27 +41,59 @@ public class BusinessCardCollectorDao {
                 .orElseThrow(() -> new RuntimeException("No Business Card found with the given id!")).getFeedbacks();
     }
 
-    public int createUpdateBusinessCard(BusinessCard businessCard) {
-        return businessCardRepository.save(businessCard).getId();
+    public BusinessCard createUpdateBusinessCard(BusinessCard businessCard) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userRepository.findByUserName(auth.getName()).get();
+
+        Optional<BusinessCard> businessCardOptional = businessCardRepository.findById(businessCard.getId());
+
+        boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
+        boolean isCreate = !businessCardOptional.isPresent();
+
+        if(isCreate){
+            businessCard.setOwner(currentUser);
+            return businessCardRepository.save(businessCard);
+        } else if (isAdmin
+                    || businessCardOptional.get().getOwner().equals(currentUser)) {
+            businessCard.setOwner(businessCardOptional.get().getOwner());
+            return businessCardRepository.save(businessCard);
+        } else {
+            return null;
+        }
     }
 
-    public void deleteBusinessCard(int bcId) {
+    public BusinessCard deleteBusinessCard(int bcId) {
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
+        User owner = bc.getOwner();
 
-        List<Feedback> feedbacks = bc.getFeedbacks();
-        feedbackRepository.deleteAll(feedbacks);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userRepository.findByUserName(auth.getName()).get();
 
-        List<User> users = bc.getUser();
-        for (User u : users){
-            List<BusinessCard> userCards = u.getBusinessCard();
-            userCards.remove(bc);
-            userRepository.save(u);
+        boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
+
+        if(owner.equals(currentUser) || isAdmin){
+            List<Feedback> feedbacks = bc.getFeedbacks();
+            feedbackRepository.deleteAll(feedbacks);
+
+            List<User> users = bc.getUser();
+            for (User u : users){
+                List<BusinessCard> userCards = u.getBusinessCard();
+                userCards.remove(bc);
+                userRepository.save(u);
+            }
+
+            businessCardRepository.deleteById(bcId);
+
+            return bc;
+        } else {
+            return null;
         }
 
-        businessCardRepository.deleteById(bcId);
     }
 
-    public BusinessCard collectBusinessCard(int bcId, User user) {
+    public BusinessCard collectBusinessCard(int bcId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUserName(auth.getName()).get();
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         List<BusinessCard> cards = user.getBusinessCard();
 
@@ -74,7 +108,9 @@ public class BusinessCardCollectorDao {
 
     }
 
-    public BusinessCard dropBusinessCard(int bcId, User user) {
+    public BusinessCard dropBusinessCard(int bcId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUserName(auth.getName()).get();
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         List<BusinessCard> cards = user.getBusinessCard();
 
@@ -89,16 +125,29 @@ public class BusinessCardCollectorDao {
 
     }
 
-    public void addFeedback(int bcId, Feedback feedback, String username) {
+    public Feedback addFeedback(int bcId, Feedback feedback) {
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User u = userRepository.findByUserName(username).get();
+        User u = userRepository.findByUserName(auth.getName()).get();
         feedback.setUser(u);
         feedback.setBusinessCard(bc);
-        feedbackRepository.save(feedback);
+        return feedbackRepository.save(feedback);
     }
 
-    public void removeFeedback(int id){
-        feedbackRepository.deleteById(id);
+    public Feedback removeFeedback(int id){
+        Feedback feedback = feedbackRepository.findById(id).orElseThrow(() -> new RuntimeException("No Feedback found with the given id!"));
+        User owner = feedback.getUser();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userRepository.findByUserName(auth.getName()).get();
+
+        boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
+
+        if(owner.equals(currentUser) || isAdmin){
+            feedbackRepository.deleteById(id);
+            return feedback;
+        } else {
+            return null;
+        }
     }
 }

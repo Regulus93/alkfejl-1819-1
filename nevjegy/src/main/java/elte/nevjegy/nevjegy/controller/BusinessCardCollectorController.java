@@ -24,55 +24,62 @@ public class BusinessCardCollectorController {
     @Autowired
     BusinessCardCollectorService businessCardCollectorService;
 
-    @Autowired
-    UserRepository userRepository;
-
     @GetMapping("getAllBC")
-    public List getAllBc() {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getPrincipal().toString());
-        return businessCardCollectorService.getAllBc();
+    public ResponseEntity getAllBc() {
+        return ResponseEntity.ok(businessCardCollectorService.getAllBc());
     }
 
     @GetMapping("getBCById")
-    public BusinessCard getBcById(
+    public ResponseEntity<BusinessCard> getBcById(
             @RequestParam int bcId) {
-        return businessCardCollectorService.getBcById(bcId);
+        return ResponseEntity.ok(businessCardCollectorService.getBcById(bcId));
     }
 
     @GetMapping("getFeedbacks/{bcId}")
-    public List getFeedbacks(@PathVariable("bcId") int bcId) {
-        return businessCardCollectorService.getFeedbacks(bcId);
+    public ResponseEntity getFeedbacks(@PathVariable("bcId") int bcId) {
+        return ResponseEntity.ok(businessCardCollectorService.getFeedbacks(bcId));
     }
 
     @PostMapping("user/createBC")
-    public int createBusinessCard(
+    public ResponseEntity createBusinessCard(
             @RequestBody BusinessCard businessCard) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        businessCard.setOwner(userRepository.findById(1).get());
-        return businessCardCollectorService.createBusinessCard(businessCard);
+        BusinessCard createdBc = businessCardCollectorService.createBusinessCard(businessCard);
+
+        if(createdBc != null){
+            return ResponseEntity.ok(createdBc);
+        } else {
+            return ResponseEntity.badRequest().body("Error during create BusinessCard.");
+        }
     }
 
-    //TODO: User own feedback it or user role is admin
     @PutMapping("user/updateBC")
-    public int updateBusinessCard(
+    public ResponseEntity updateBusinessCard(
             @RequestBody BusinessCard businessCard) {
-        return businessCardCollectorService.updateBusinessCard(businessCard);
+
+        BusinessCard updatedBc = businessCardCollectorService.updateBusinessCard(businessCard);
+
+        if(updatedBc != null){
+            return ResponseEntity.ok(updatedBc);
+        } else {
+            return ResponseEntity.badRequest().body("Error during update BusinessCard.");
+        }
     }
 
     @DeleteMapping("user/deleteBC")
-    public void deleteBusinessCard(
+    public ResponseEntity deleteBusinessCard(
             @RequestParam int bcId) {
-        businessCardCollectorService.deleteBusinessCard(bcId);
+        BusinessCard deletedBusinessCard = businessCardCollectorService.deleteBusinessCard(bcId);
+
+        if(deletedBusinessCard != null){
+            return ResponseEntity.ok(deletedBusinessCard);
+        } else {
+            return ResponseEntity.badRequest().body("Error during delete BusinessCard.");
+        }
     }
 
     @PostMapping("user/collectBC")
     public ResponseEntity collectBusinessCard(@RequestParam int bcId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUserName(auth.getName()).get();
-        BusinessCard collectedBc = businessCardCollectorService.collectBusinessCard(
-                bcId, user);
+        BusinessCard collectedBc = businessCardCollectorService.collectBusinessCard(bcId);
         if(collectedBc != null){
             return ResponseEntity.ok(collectedBc);
         } else {
@@ -83,10 +90,7 @@ public class BusinessCardCollectorController {
 
     @PostMapping("user/dropBC")
     public ResponseEntity dropBusinessCard(@RequestParam int bcId){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByUserName(auth.getName()).get();
-        BusinessCard droppedBusinessCard = businessCardCollectorService.dropBusinessCard(
-                bcId, user);
+        BusinessCard droppedBusinessCard = businessCardCollectorService.dropBusinessCard(bcId);
 
         if(droppedBusinessCard != null){
             return ResponseEntity.ok(droppedBusinessCard);
@@ -96,17 +100,21 @@ public class BusinessCardCollectorController {
     }
 
     @PostMapping("user/addFeedback")
-    public void addFeedback(
+    public ResponseEntity addFeedback(
             @RequestBody Feedback feedback,
             @RequestParam int bcId, Principal principal) {
 
         if (feedback.getRateValue() == null) throw new InvalidParameterException("Rate value must be not null");
-        businessCardCollectorService.addFeedback(bcId, feedback, principal.getName());
+        return ResponseEntity.ok(businessCardCollectorService.addFeedback(bcId, feedback));
     }
 
-    //TODO: User own feedback it or user role is admin
     @PostMapping("user/removeFeedback")
-    public void removeFeedback(@RequestParam int id){
-        businessCardCollectorService.removeFeedback(id);
+    public ResponseEntity removeFeedback(@RequestParam int id){
+        Feedback removedFeedback = businessCardCollectorService.removeFeedback(id);
+        if(removedFeedback != null){
+            return ResponseEntity.ok(removedFeedback);
+        } else {
+            return ResponseEntity.badRequest().body("Error during remove feedback.");
+        }
     }
 }
