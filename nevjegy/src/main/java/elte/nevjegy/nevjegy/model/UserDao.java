@@ -28,10 +28,10 @@ public class UserDao {
     @Autowired
     private FeedbackRepository feedbackRepository;
 
-    public User register(User user, BCryptPasswordEncoder passwordEncoder){
+    public User register(User user, BCryptPasswordEncoder passwordEncoder) {
         Optional<User> optionalUser = userRepository.findByUserName(user.getUserName());
 
-        if(optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             return null;
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -40,28 +40,28 @@ public class UserDao {
         }
     }
 
-    public User updateProfile(User updateUser, BCryptPasswordEncoder passwordEncoder){
+    public User updateProfile(User updateUser, BCryptPasswordEncoder passwordEncoder) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         User currentUser = userRepository.findByUserName(auth.getName())
                 .orElseThrow(() -> new RuntimeException("No User found with the given id!"));
 
-        if(updateUser.getEmail() != null) currentUser.setEmail(updateUser.getEmail());
-        if(updateUser.getFullName() != null) currentUser.setFullName(updateUser.getFullName());
-        if(updateUser.getPassword() != null) currentUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+        if (updateUser.getEmail() != null) currentUser.setEmail(updateUser.getEmail());
+        if (updateUser.getFullName() != null) currentUser.setFullName(updateUser.getFullName());
+        if (updateUser.getPassword() != null) currentUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
         updateUser.setRole(UserRole.ROLE_USER);
 
         return userRepository.save(currentUser);
     }
 
-    public User deleteProfile(int id){
+    public User deleteProfile(int id) {
         User userToDelete = userRepository.findById(id).orElseThrow(() -> new RuntimeException("No User found with the given id!"));
 
         List<Feedback> feedbacks = userToDelete.getFeedbacks();
         feedbackRepository.deleteAll(feedbacks);
 
         List<BusinessCard> cards = userToDelete.getBusinessCard();
-        for (BusinessCard bc : cards){
+        for (BusinessCard bc : cards) {
             List<User> users = bc.getUser();
             users.remove(userToDelete);
             businessCardRepository.save(bc);

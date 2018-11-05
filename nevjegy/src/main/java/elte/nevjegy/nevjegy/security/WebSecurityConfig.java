@@ -28,9 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable() // H2 Console
                 .authorizeRequests()
                 .antMatchers("/users/superuser/**").hasRole("SUPERUSER")
-                .antMatchers("/BCC/user/**").hasAnyRole("USER","ADMIN", "SUPERUSER")
+                .antMatchers("/BCC/user/**").hasAnyRole("USER", "ADMIN", "SUPERUSER")
                 .antMatchers("/users/register").permitAll()
-                .antMatchers("/users/**").hasAnyRole("USER","ADMIN", "SUPERUSER")
+                .antMatchers("/users/**").hasAnyRole("USER", "ADMIN", "SUPERUSER")
                 .antMatchers("/h2/**", "/**").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
+    public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint() {
         return new CustomBasicAuthenticationEntryPoint();
     }
 

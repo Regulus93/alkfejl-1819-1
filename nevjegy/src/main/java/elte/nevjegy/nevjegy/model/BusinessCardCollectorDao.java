@@ -50,11 +50,11 @@ public class BusinessCardCollectorDao {
         boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
         boolean isCreate = !businessCardOptional.isPresent();
 
-        if(isCreate){
+        if (isCreate) {
             businessCard.setOwner(currentUser);
             return businessCardRepository.save(businessCard);
         } else if (isAdmin
-                    || businessCardOptional.get().getOwner().equals(currentUser)) {
+                || businessCardOptional.get().getOwner().equals(currentUser)) {
             businessCard.setOwner(businessCardOptional.get().getOwner());
             return businessCardRepository.save(businessCard);
         } else {
@@ -71,12 +71,12 @@ public class BusinessCardCollectorDao {
 
         boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
 
-        if(owner.equals(currentUser) || isAdmin){
+        if (owner.equals(currentUser) || isAdmin) {
             List<Feedback> feedbacks = bc.getFeedbacks();
             feedbackRepository.deleteAll(feedbacks);
 
             List<User> users = bc.getUser();
-            for (User u : users){
+            for (User u : users) {
                 List<BusinessCard> userCards = u.getBusinessCard();
                 userCards.remove(bc);
                 userRepository.save(u);
@@ -97,7 +97,7 @@ public class BusinessCardCollectorDao {
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         List<BusinessCard> cards = user.getBusinessCard();
 
-        if(!cards.contains(bc)){
+        if (!cards.contains(bc)) {
             cards.add(bc);
             user.setBusinessCard(cards);
             userRepository.save(user);
@@ -114,7 +114,7 @@ public class BusinessCardCollectorDao {
         BusinessCard bc = businessCardRepository.findById(bcId).orElseThrow(() -> new RuntimeException("No Business Card found with the given id!"));
         List<BusinessCard> cards = user.getBusinessCard();
 
-        if(cards.contains(bc)){
+        if (cards.contains(bc)) {
             cards.remove(bc);
             user.setBusinessCard(cards);
             userRepository.save(user);
@@ -134,7 +134,7 @@ public class BusinessCardCollectorDao {
         return feedbackRepository.save(feedback);
     }
 
-    public Feedback removeFeedback(int id){
+    public Feedback removeFeedback(int id) {
         Feedback feedback = feedbackRepository.findById(id).orElseThrow(() -> new RuntimeException("No Feedback found with the given id!"));
         User owner = feedback.getUser();
 
@@ -143,7 +143,7 @@ public class BusinessCardCollectorDao {
 
         boolean isAdmin = currentUser.getRole() == UserRole.ROLE_ADMIN;
 
-        if(owner.equals(currentUser) || isAdmin){
+        if (owner.equals(currentUser) || isAdmin) {
             feedbackRepository.deleteById(id);
             return feedback;
         } else {

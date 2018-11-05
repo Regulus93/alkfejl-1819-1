@@ -12,14 +12,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "Feedback")
-@SequenceGenerator(name="feedbackgen", sequenceName = "feedbackgen", initialValue = 6)
-public class Feedback{
+@SequenceGenerator(name = "feedbackgen", sequenceName = "feedbackgen", initialValue = 6)
+public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "feedbackgen")
     private Integer id;
 
-    @Version private int version;
+    @Version
+    private int version;
 
     @Column(nullable = false)
     private Integer rateValue;

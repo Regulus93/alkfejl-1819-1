@@ -2,12 +2,8 @@ package elte.nevjegy.nevjegy.service;
 
 import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
-import elte.nevjegy.nevjegy.entity.User;
 import elte.nevjegy.nevjegy.model.BusinessCardCollectorDao;
-import elte.nevjegy.nevjegy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,31 +26,31 @@ public class BusinessCardCollectorService {
         return businessCardCollectorDao.getFeedbacks(bcId);
     }
 
-    public BusinessCard createBusinessCard(BusinessCard businessCard){
+    public BusinessCard createBusinessCard(BusinessCard businessCard) {
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public BusinessCard updateBusinessCard(BusinessCard businessCard){
+    public BusinessCard updateBusinessCard(BusinessCard businessCard) {
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public BusinessCard deleteBusinessCard(int bcId){
+    public BusinessCard deleteBusinessCard(int bcId) {
         return businessCardCollectorDao.deleteBusinessCard(bcId);
     }
 
-    public BusinessCard collectBusinessCard(int bcId){
+    public BusinessCard collectBusinessCard(int bcId) {
         return businessCardCollectorDao.collectBusinessCard(bcId);
     }
 
-    public BusinessCard dropBusinessCard(int bcId){
+    public BusinessCard dropBusinessCard(int bcId) {
         return businessCardCollectorDao.dropBusinessCard(bcId);
     }
 
-    public Feedback addFeedback(int bcId, Feedback feedback){
+    public Feedback addFeedback(int bcId, Feedback feedback) {
         return businessCardCollectorDao.addFeedback(bcId, feedback);
     }
 
-    public Feedback removeFeedback(int id){
+    public Feedback removeFeedback(int id) {
         return businessCardCollectorDao.removeFeedback(id);
     }
 

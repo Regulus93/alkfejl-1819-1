@@ -16,7 +16,7 @@ public class UserController {
     @PostMapping("register")
     public ResponseEntity<User> register(@RequestBody User user) {
         User savedUser = userService.register(user);
-        if(savedUser == null){
+        if (savedUser == null) {
             return ResponseEntity.badRequest().build();
         } else {
             return ResponseEntity.ok(savedUser);
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("getProfile")
-    public ResponseEntity<User> getProfile(){
+    public ResponseEntity<User> getProfile() {
         return ResponseEntity.ok(userService.getProfile());
     }
 
@@ -39,12 +39,12 @@ public class UserController {
     }
 
     @DeleteMapping("superuser/deleteUser")
-    public ResponseEntity<User> deleteUser(@RequestParam("id") int id){
+    public ResponseEntity<User> deleteUser(@RequestParam("id") int id) {
         return ResponseEntity.ok(userService.deleteProfile(id));
     }
 
     @PutMapping("superuser/changeUserRole")
-    public ResponseEntity<User> changeUserRole(@RequestBody User updateUser){
+    public ResponseEntity<User> changeUserRole(@RequestBody User updateUser) {
         return ResponseEntity.ok(userService.changeUserRole(updateUser));
     }
 

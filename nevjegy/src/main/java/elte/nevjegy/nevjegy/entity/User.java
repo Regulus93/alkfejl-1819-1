@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "User")
-@SequenceGenerator(name="usergen", sequenceName = "usergen", initialValue = 6)
+@SequenceGenerator(name = "usergen", sequenceName = "usergen", initialValue = 6)
 public class User {
 
     @Id
@@ -40,8 +40,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH})
-    @JoinTable(joinColumns=@JoinColumn(name = "USER_ID"), inverseJoinColumns=@JoinColumn(name = "BUSINESS_CARD_ID"))
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinTable(joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "BUSINESS_CARD_ID"))
     @JsonIgnore
     private List<BusinessCard> businessCard;
 

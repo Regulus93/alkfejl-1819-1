@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "BusinessCard")
-@SequenceGenerator(name="bcgen", sequenceName = "bcgen", initialValue = 6)
-public class BusinessCard{
+@SequenceGenerator(name = "bcgen", sequenceName = "bcgen", initialValue = 6)
+public class BusinessCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "bcgen")
@@ -30,7 +30,7 @@ public class BusinessCard{
     @Column(nullable = false)
     private String phone;
 
-    @ManyToMany(mappedBy = "businessCard", cascade={CascadeType.PERSIST, CascadeType.DETACH})
+    @ManyToMany(mappedBy = "businessCard", cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     @JsonIgnore
     private List<User> user;
 

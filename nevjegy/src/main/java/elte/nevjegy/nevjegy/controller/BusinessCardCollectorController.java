@@ -2,20 +2,13 @@ package elte.nevjegy.nevjegy.controller;
 
 import elte.nevjegy.nevjegy.entity.BusinessCard;
 import elte.nevjegy.nevjegy.entity.Feedback;
-import elte.nevjegy.nevjegy.entity.User;
-import elte.nevjegy.nevjegy.repository.UserRepository;
 import elte.nevjegy.nevjegy.service.BusinessCardCollectorService;
-import javafx.scene.layout.Background;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/BCC")
@@ -45,7 +38,7 @@ public class BusinessCardCollectorController {
             @RequestBody BusinessCard businessCard) {
         BusinessCard createdBc = businessCardCollectorService.createBusinessCard(businessCard);
 
-        if(createdBc != null){
+        if (createdBc != null) {
             return ResponseEntity.ok(createdBc);
         } else {
             return ResponseEntity.badRequest().body("Error during create BusinessCard.");
@@ -58,7 +51,7 @@ public class BusinessCardCollectorController {
 
         BusinessCard updatedBc = businessCardCollectorService.updateBusinessCard(businessCard);
 
-        if(updatedBc != null){
+        if (updatedBc != null) {
             return ResponseEntity.ok(updatedBc);
         } else {
             return ResponseEntity.badRequest().body("Error during update BusinessCard.");
@@ -70,7 +63,7 @@ public class BusinessCardCollectorController {
             @RequestParam int bcId) {
         BusinessCard deletedBusinessCard = businessCardCollectorService.deleteBusinessCard(bcId);
 
-        if(deletedBusinessCard != null){
+        if (deletedBusinessCard != null) {
             return ResponseEntity.ok(deletedBusinessCard);
         } else {
             return ResponseEntity.badRequest().body("Error during delete BusinessCard.");
@@ -80,7 +73,7 @@ public class BusinessCardCollectorController {
     @PostMapping("user/collectBC")
     public ResponseEntity collectBusinessCard(@RequestParam int bcId) {
         BusinessCard collectedBc = businessCardCollectorService.collectBusinessCard(bcId);
-        if(collectedBc != null){
+        if (collectedBc != null) {
             return ResponseEntity.ok(collectedBc);
         } else {
             return ResponseEntity.badRequest().body("Already collected or invalid BC!");
@@ -89,10 +82,10 @@ public class BusinessCardCollectorController {
     }
 
     @PostMapping("user/dropBC")
-    public ResponseEntity dropBusinessCard(@RequestParam int bcId){
+    public ResponseEntity dropBusinessCard(@RequestParam int bcId) {
         BusinessCard droppedBusinessCard = businessCardCollectorService.dropBusinessCard(bcId);
 
-        if(droppedBusinessCard != null){
+        if (droppedBusinessCard != null) {
             return ResponseEntity.ok(droppedBusinessCard);
         } else {
             return ResponseEntity.badRequest().body("Not collected or invalid BC!");
@@ -109,9 +102,9 @@ public class BusinessCardCollectorController {
     }
 
     @DeleteMapping("user/removeFeedback")
-    public ResponseEntity removeFeedback(@RequestParam int id){
+    public ResponseEntity removeFeedback(@RequestParam int id) {
         Feedback removedFeedback = businessCardCollectorService.removeFeedback(id);
-        if(removedFeedback != null){
+        if (removedFeedback != null) {
             return ResponseEntity.ok(removedFeedback);
         } else {
             return ResponseEntity.badRequest().body("Error during remove feedback.");

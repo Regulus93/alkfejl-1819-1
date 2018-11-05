@@ -1,7 +1,6 @@
 package elte.nevjegy.nevjegy.service;
 
 import elte.nevjegy.nevjegy.entity.User;
-import elte.nevjegy.nevjegy.enumtype.UserRole;
 import elte.nevjegy.nevjegy.model.UserDao;
 import elte.nevjegy.nevjegy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,12 +25,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> oUser = userRepository.findByUserName(username);
-        if(!oUser.isPresent()){
+        if (!oUser.isPresent()) {
             throw new UsernameNotFoundException(username);
         }
         User user = oUser.get();
@@ -41,10 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }
-
-
-    @Autowired
-    private UserDao userDao;
 
     public User updateProfile(User user) {
         return userDao.updateProfile(user, passwordEncoder);
