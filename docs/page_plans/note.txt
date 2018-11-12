@@ -1,0 +1,47 @@
+#### Felhasználói történetek: 
+
+  - A felhaszáló belép az oldalra a felhasználói nevével, és jelszavával. A jogosultsági köréhez megfelelő menüpontok, és funkciók jelennek meg a megjelenő oldalon.
+  - A bejelentkezett felhasználó a "Keresés" menüponton belül rákeres a "vízvezetékszerelő" kategóriájú névjegyre, majd a "Hozzáadás a gyűjteményemhez" gombra kattintva rögzíti a profiljához a névjegyet.
+  - A bejelentkezett felhasználó a "Kijelentkezés" gombra kattintva kijelentkezik a böngészőből.
+      
+
+Oldalak hierarchiája:
+	-> Regisztráció
+	-> Bejelentkezés
+			|
+			|
+			-> Menüpontok:
+					|
+					|
+					-> BCC-k tallózása:
+							|
+							-> Új létrehozása
+							-> Keresés
+							-> TODO: Kollekcióm (hiányzó endpoint)
+							-> TODO: Általam létrehozottak
+							-> TODO: kommentek
+					-> Profil:
+							|
+							-> Profilom megtekintése
+							-> Kommentjeim megtekintése
+							-> TODO: Felhasználók kezelése (/users/getUsers) lehetne SUPERUSER hatáskör)
+							
+					
+Oldalak amikre szükség van:
+
+	Formok:
+		- Regisztráció [/users/register]
+		- Bejelentkezés [/login]
+		- BCC létrehozása(/szerkesztői oldal megegyezik?) [/BCC/createBC]
+		- BCC értékelés [/BCC/user/addFeedback]
+		- BCC-k szűrése [/BCC/getBCByID(?)]
+		- Profil szerkesztése [/users/updateProfile]
+
+	Entitások megjelenítése:
+		- BCC találati lista (kommentek itt is megjelenhetnek?) [/BCC/getAllBC]
+		- BCC kollekció [/BCC/getBCByID(?),/BCC/dropBC]
+		- Komment találati lista (profilhoz köthetően) []
+		- Felhasználók megjelenítése [/users/users TODO: ezt átnevezhetnénk getUsers-re]
+		- Profil adatainak megjelenítése [/users/getProfile]
+		
+	Sidebar
