@@ -1,0 +1,24 @@
+<h2>BusinessCard list</h2>
+
+<status-filter [selectedStatus]="selectedStatus" (change)="onFilterChange($event)"></status-filter>
+
+<mat-nav-list>
+  <a mat-list-item
+    *ngFor="let issue of filteredIssues"
+    [routerLink]="['/issues', issue.id, 'edit']"
+    (click)="selectedIssue = issue"
+    [class.selected]="issue === selectedIssue"
+  >
+    <mat-icon *ngIf="issue.address === 'Budapest'" matListIcon style="color: red">fiber_new</mat-icon>
+    <mat-icon *ngIf="issue.address === 'New York'" matListIcon style="color: orange">build</mat-icon>
+    <mat-icon *ngIf="issue.address === 'Torino'" matListIcon style="color: green">done</mat-icon>
+    <h3 matLine>{{issue.name}}</h3>
+    <small matLine>
+      <mat-icon>place</mat-icon>{{issue.address}}
+      <mat-icon>access_time</mat-icon> {{issue.updated_at}}
+    </small>
+    <p matLine>{{issue.phone}}</p>
+  </a>
+</mat-nav-list>
+
+<issue-form *ngIf="selectedIssue" [issue]="selectedIssue" (save)="onFormSave($event)"></issue-form>

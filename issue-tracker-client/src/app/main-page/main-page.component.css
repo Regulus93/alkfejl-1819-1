@@ -1,0 +1,14 @@
+div.container {
+  position:fixed;
+  padding:0;
+  margin:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+
+  background:rgba(244,244,244,0.5);
+}
+
+div.text{
+  text-align: center;
+}
