@@ -1,8 +1,10 @@
 <mat-toolbar color="primary">
-  <button mat-button href="/">
+  <button mat-button routerLink="/">
     <mat-icon>home</mat-icon>
-    Kezdőoldal
+    BCC - Business Card Collector
   </button>
-  <button mat-button href="/issues">Saját névjegyeim</button>
-  <button mat-button href="/issues/add">Új névjegy hozzáadása</button>
+  <button mat-button routerLink="/issues">My BCs</button>
+  <button mat-button routerLink="/issues/add">New BC</button>
 </mat-toolbar>
+
+<router-outlet></router-outlet>

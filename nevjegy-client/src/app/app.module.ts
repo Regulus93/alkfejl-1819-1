@@ -1,29 +1,50 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenubarComponent } from './menubar/menubar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatListModule,
+  MatButtonToggleModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatSelectModule
+} from '@angular/material';
+import { IssueListComponent } from './issue-list/issue-list.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { RoutingModule } from './routing/routing.module';
+import { StatusFilterComponent } from './status-filter/status-filter.component';
+import { IssueFormComponent } from './issue-form/issue-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenubarComponent
+    IssueListComponent,
+    MainPageComponent,
+    StatusFilterComponent,
+    IssueFormComponent
   ],
   imports: [
-	NgbModule.forRoot(),
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-	MatToolbarModule,
+    MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule,
+    RoutingModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
