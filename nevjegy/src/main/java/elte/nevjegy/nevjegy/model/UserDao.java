@@ -7,9 +7,8 @@ import elte.nevjegy.nevjegy.enumtype.UserRole;
 import elte.nevjegy.nevjegy.repository.BusinessCardRepository;
 import elte.nevjegy.nevjegy.repository.FeedbackRepository;
 import elte.nevjegy.nevjegy.repository.UserRepository;
+import elte.nevjegy.nevjegy.security.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +17,9 @@ import java.util.Optional;
 
 @Repository
 public class UserDao {
+
+    @Autowired
+    Session session;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,21 +42,23 @@ public class UserDao {
         }
     }
 
-    public User updateProfile(User updateUser, BCryptPasswordEncoder passwordEncoder) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public User updateProfile(User updateUser, BCryptPasswordEncoder passwordEncoder) throws Exception {
+        try {
+            User currentUser = session.getUser();
 
-        User currentUser = userRepository.findByUserName(auth.getName())
-                .orElseThrow(() -> new RuntimeException("No User found with the given id!"));
+            if (updateUser.getEmail() != null) currentUser.setEmail(updateUser.getEmail());
+            if (updateUser.getFullName() != null) currentUser.setFullName(updateUser.getFullName());
+            if (updateUser.getPassword() != null)
+                currentUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+            updateUser.setRole(UserRole.ROLE_USER);
 
-        if (updateUser.getEmail() != null) currentUser.setEmail(updateUser.getEmail());
-        if (updateUser.getFullName() != null) currentUser.setFullName(updateUser.getFullName());
-        if (updateUser.getPassword() != null) currentUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
-        updateUser.setRole(UserRole.ROLE_USER);
-
-        return userRepository.save(currentUser);
+            return userRepository.save(currentUser);
+        } catch (Exception e) {
+            throw new Exception("Not logged in!");
+        }
     }
 
-    public User deleteProfile(int id) {
+    public User deleteProfile(int id) throws Exception {
         User userToDelete = userRepository.findById(id).orElseThrow(() -> new RuntimeException("No User found with the given id!"));
 
         List<Feedback> feedbacks = userToDelete.getFeedbacks();
@@ -73,8 +77,7 @@ public class UserDao {
     }
 
     public User getProfile() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByUserName(auth.getName()).orElseThrow(() -> new RuntimeException("No User found with the given id!"));
+        return session.getUser();
     }
 
     public User changeUserRole(User updateUser) {
