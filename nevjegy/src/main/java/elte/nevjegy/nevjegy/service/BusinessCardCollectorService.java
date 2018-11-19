@@ -26,31 +26,31 @@ public class BusinessCardCollectorService {
         return businessCardCollectorDao.getFeedbacks(bcId);
     }
 
-    public BusinessCard createBusinessCard(BusinessCard businessCard) {
+    public BusinessCard createBusinessCard(BusinessCard businessCard) throws Exception {
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public BusinessCard updateBusinessCard(BusinessCard businessCard) {
+    public BusinessCard updateBusinessCard(BusinessCard businessCard) throws Exception {
         return businessCardCollectorDao.createUpdateBusinessCard(businessCard);
     }
 
-    public BusinessCard deleteBusinessCard(int bcId) {
+    public BusinessCard deleteBusinessCard(int bcId)throws Exception  {
         return businessCardCollectorDao.deleteBusinessCard(bcId);
     }
 
-    public BusinessCard collectBusinessCard(int bcId) {
+    public BusinessCard collectBusinessCard(int bcId)throws Exception  {
         return businessCardCollectorDao.collectBusinessCard(bcId);
     }
 
-    public BusinessCard dropBusinessCard(int bcId) {
+    public BusinessCard dropBusinessCard(int bcId)throws Exception  {
         return businessCardCollectorDao.dropBusinessCard(bcId);
     }
 
-    public Feedback addFeedback(int bcId, Feedback feedback) {
+    public Feedback addFeedback(int bcId, Feedback feedback)throws Exception  {
         return businessCardCollectorDao.addFeedback(bcId, feedback);
     }
 
-    public Feedback removeFeedback(int id) {
+    public Feedback removeFeedback(int id) throws Exception {
         return businessCardCollectorDao.removeFeedback(id);
     }
 
