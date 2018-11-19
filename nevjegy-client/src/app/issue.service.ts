@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {find, map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {filter, find, map, tap} from 'rxjs/operators';
+import {Observable, pipe} from 'rxjs';
+import {BusinessCard} from './BusinessCard';
 
-const endpoint = 'http://localhost:8080/BCC/';
+const bccEndpoint = 'http://localhost:8080/BCC/';
+const userEndpoint = 'http://localhost:8080/BCC/user/';
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': btoa('admin1:1234567')
   })
 };
 
@@ -15,54 +18,19 @@ const httpOptions = {
 })
 export class IssueService {
 
-
-  /*issues: BusinessCard[] = [
-    {
-      id: 1,
-      name: 'issue1',
-      phone: 'Some long phone about issue 1',
-      address: 'PC6',
-      status: 'NEW',
-      updated_at: '2018-11-11'
-    },
-    {
-      id: 2,
-      name: 'issue2',
-      phone: 'Some long phone about issue 1',
-      address: 'PC6',
-      status: 'DOING',
-      updated_at: '2018-11-11'
-    },
-    {
-      id: 3,
-      name: 'issue3',
-      phone: 'Some long phone about issue 1',
-      address: 'PC6',
-      status: 'DOING',
-      updated_at: '2018-11-11'
-    },
-    {
-      id: 4,
-      name: 'issue4',
-      phone: 'Some long phone about issue 1',
-      address: 'PC6',
-      status: 'DONE',
-      updated_at: '2018-11-11'
-    },
-  ];*/
-
   constructor(private http: HttpClient) {
   }
 
-  getIssues(): Observable<any> {
-    return this.http.get(endpoint + 'GetAllBC').pipe(map(this.extractData));
+  getIssues(): Observable<BusinessCard[]> {
+    console.log(httpOptions.headers.get('Authorization'));
+    return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC');
   }
 
-  getIssue(id) {
-    return this.http.get(endpoint + 'GetAllBC').pipe(map(this.extractData)).pipe(find(id));
+  getIssue(id): Observable<BusinessCard[]> {
+    return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC', httpOptions).pipe(map(data => data.filter(bc => bc.id === id)));
   }
 
-  private extractData(res: Response) {
-    return res;
+  postIssue(bc: BusinessCard): void {
+    this.http.put(userEndpoint + 'updateBC', bc, httpOptions).subscribe();
   }
 }

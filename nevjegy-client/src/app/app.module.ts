@@ -28,6 +28,7 @@ import { UserViewComponent } from './user-view/user-view.component';
 import { ProfileDisplayComponent } from './profile-display/profile-display.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { BccViewComponent } from './bcc-view/bcc-view.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { BccViewComponent } from './bcc-view/bcc-view.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+	RouterModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

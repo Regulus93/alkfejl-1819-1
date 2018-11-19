@@ -10,7 +10,7 @@ import { IssueService } from '../issue.service';
 export class IssueListComponent implements OnInit {
 
   selectedStatus = 'ALL';
-  issues: any = [];
+  issues: BusinessCard[] = [];
   filteredIssues: BusinessCard[] = [];
   selectedIssue: BusinessCard = null;
 
@@ -19,8 +19,7 @@ export class IssueListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.issueService.getIssues().subscribe((data: {}) => {
-      console.log(data);
+    this.issueService.getIssues().subscribe((data) => {
       this.issues = data;
     });
     this.filterIssues();

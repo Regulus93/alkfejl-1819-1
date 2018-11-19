@@ -1,32 +1,19 @@
 {{issue | json}}
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input matInput placeholder="Title" formControlName="title" required>
-    <!-- <mat-error *ngIf="form.get('name').invalid">Required</mat-error> -->
-    <mat-error *ngIf="title.invalid">Title is required</mat-error>
+    <input matInput placeholder="Name" formControlName="name" required>
+    <mat-error *ngIf="name.invalid">Name is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Place" formControlName="place" required pattern="PC\d+">
-    <!-- <mat-error *ngIf="form.get('name').invalid">Required</mat-error> -->
-    <mat-error *ngIf="place.invalid && (place.dirty || place.touched) && place.errors.required">
-      Place is required!
-    </mat-error>
-    <mat-error *ngIf="place.invalid && (place.dirty || place.touched) && place.errors.pattern">
-      Place must start with PC...!
+    <input matInput placeholder="Address" formControlName="address" required>
+    <mat-error *ngIf="address.invalid">
+      Address is required!
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <textarea matInput placeholder="Description" formControlName="description"></textarea>
-  </mat-form-field>
-
-  <mat-form-field *ngIf="issue.id !== null">
-    <mat-select placeholder="Status" formControlName="status" required>
-      <mat-option *ngFor="let status of statuses" [value]="status">
-        {{status}}
-      </mat-option>
-    </mat-select>
+    <textarea matInput placeholder="Phone" formControlName="phone"></textarea>
   </mat-form-field>
 
   <div>

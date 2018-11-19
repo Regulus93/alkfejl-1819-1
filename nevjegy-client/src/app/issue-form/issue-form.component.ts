@@ -11,34 +11,27 @@ import {Location} from '@angular/common';
   styleUrls: ['./issue-form.component.css']
 })
 export class IssueFormComponent implements OnInit, OnChanges {
-
+  bc: BusinessCard[];
   statuses: string[] = ['NEW', 'DOING', 'DONE'];
   form = this.fb.group({
-    title: ['', [Validators.required]],
-    place: ['', [Validators.required, Validators.pattern('PC\\d+')]],
-    description: [''],
+    name: ['', [Validators.required]],
+    address: ['', [Validators.required]],
+    phone: [''],
     status: ['NEW', [Validators.required]]
   });
-  @Input() issue: any = {
-    id: null,
-    name: '',
-    phone: '',
-    address: '',
-    status: 'NEW',
-    updated_at: ''
-  };
+  @Input() issue: BusinessCard;
   @Output() save = new EventEmitter<BusinessCard>();
 
-  get title() {
-    return this.form.get('title');
+  get name() {
+    return this.form.get('name');
   }
 
-  get place() {
-    return this.form.get('place');
+  get address() {
+    return this.form.get('address');
   }
 
-  get description() {
-    return this.form.get('description');
+  get phone() {
+    return this.form.get('phone');
   }
 
   get status() {
@@ -56,8 +49,11 @@ export class IssueFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.issue = this.issueService.getIssue(id);
-    this.form.patchValue(this.issue);
+    this.issueService.getIssue(id).subscribe(data => {
+      this.bc = data;
+      this.issue = this.bc[0];
+      this.form.patchValue(this.issue);
+    });
   }
 
   ngOnChanges() {
@@ -66,8 +62,7 @@ export class IssueFormComponent implements OnInit, OnChanges {
 
   onSubmit() {
     const emittedIssue = Object.assign(this.issue, this.form.value);
-    this.save.emit(emittedIssue);
-    this.location.back();
+    this.issueService.postIssue(emittedIssue);
   }
 
 }

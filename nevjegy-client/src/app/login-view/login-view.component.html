@@ -1,3 +1,25 @@
-<p>
-  login-view under construction: place of login with your user credentials
-</p>
+<div class="container">
+  <h1 class="red-text text-lighten-2" align="center">Bejelentkezés</h1>
+  <div class="row" align="center">
+    <div class="input-field col s12">
+      <input #email type="email" [ngClass]="error ? 'error' : ''" placeholder="E-mail cím">
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="input-field col s12">
+      <input #password type="password" [ngClass]="error ? 'error' : ''" placeholder="Jelszó">
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col s12">
+      <input type="button" value="Bejelentkezés" class="btn"
+             (click)="tryLogin(email.value, password.value)">
+    </div>
+  </div>
+  <div class="row">
+    <p *ngIf="this.form">
+      Az adott oldal megtekintéséhez nincs megfelelő jogosultsága.
+      A folytatáshoz jelentkezen be.
+    </p>
+  </div>
+</div>
