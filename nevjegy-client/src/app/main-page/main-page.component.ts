@@ -7,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+
+    this.greetings = [
+      'Jó reggelt!',
+      'Good morning!',
+      'Guten tag!',
+      'Buenos dias!'
+  ];
+
+  }
+
+  private greetings: string[];
 
   ngOnInit() {
   }

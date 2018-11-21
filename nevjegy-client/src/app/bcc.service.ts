@@ -16,21 +16,21 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class IssueService {
+export class BccService {
 
   constructor(private http: HttpClient) {
   }
 
-  getIssues(): Observable<BusinessCard[]> {
+  getBccs(): Observable<BusinessCard[]> {
     console.log(httpOptions.headers.get('Authorization'));
     return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC');
   }
 
-  getIssue(id): Observable<BusinessCard[]> {
+  getBcc(id): Observable<BusinessCard[]> {
     return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC', httpOptions).pipe(map(data => data.filter(bc => bc.id === id)));
   }
 
-  postIssue(bc: BusinessCard): void {
+  postBcc(bc: BusinessCard): void {
     this.http.put(userEndpoint + 'updateBC', bc, httpOptions).subscribe();
   }
 }

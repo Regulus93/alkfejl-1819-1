@@ -1,3 +1,24 @@
-<p>
-  bcc-list-view under construction: place of listing BCC-s
-</p>
+<h2>BusinessCard list</h2>
+
+<status-filter [selectedStatus]="selectedStatus" (change)="onFilterChange($event)"></status-filter>
+
+<mat-nav-list>
+  <a mat-list-item
+    *ngFor="let bcc of filteredBcc"
+    [routerLink]="['/cards', bcc.id, 'edit']"
+    (click)="selectedBcc = bcc"
+    [class.selected]="bcc === selectedBcc"
+  >
+    <mat-icon *ngIf="bcc.address === 'Budapest'" matListIcon style="color: red">fiber_new</mat-icon>
+    <mat-icon *ngIf="bcc.address === 'New York'" matListIcon style="color: orange">build</mat-icon>
+    <mat-icon *ngIf="bcc.address === 'Torino'" matListIcon style="color: green">done</mat-icon>
+    <h3 matLine>{{bcc.name}}</h3>
+    <small matLine>
+      <mat-icon>place</mat-icon>{{bcc.address}}
+      <mat-icon>access_time</mat-icon> {{bcc.updated_at}}
+    </small>
+    <p matLine>{{bcc.phone}}</p>
+  </a>
+</mat-nav-list>
+
+<bcc-form *ngIf="selectedBcc" [bcc]="selectedBcc" (save)="onFormSave($event)"></bcc-form>

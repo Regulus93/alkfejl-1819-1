@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BusinessCard } from '../BusinessCard';
+import { BccService } from '../bcc.service';
 
 @Component({
   selector: 'app-bcc-list-view',
@@ -7,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BccListViewComponent implements OnInit {
 
-  constructor() { }
+  selectedStatus = 'ALL';
+  bccs: BusinessCard[] = [];
+  filteredBcc: BusinessCard[] = [];
+  selectedBcc: BusinessCard = null;
+
+  constructor(
+    private bccService: BccService
+  ) { }
 
   ngOnInit() {
+    this.bccService.getBccs().subscribe((data) => {
+      this.bccs = data;
+    });
+    this.filterBcc();
   }
 
+  filterBcc() {
+    this.filteredBcc = this.selectedStatus === ''
+      ? this.bccs
+      : this.bccs;
+  }
+
+  // (change)="onFilterChange(group.value)"
+  onFilterChange(value) {
+    this.selectedStatus = value;
+    this.filterBcc();
+  }
+
+  onFormSave(bcc: BusinessCard) {
+    this.selectedBcc = bcc;
+  }
 }

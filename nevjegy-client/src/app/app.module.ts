@@ -11,13 +11,12 @@ import {
   MatButtonToggleModule,
   MatInputModule,
   MatFormFieldModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCardModule
 } from '@angular/material';
-import { IssueListComponent } from './issue-list/issue-list.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { RoutingModule } from './routing/routing.module';
 import { StatusFilterComponent } from './status-filter/status-filter.component';
-import { IssueFormComponent } from './issue-form/issue-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginViewComponent } from './login-view/login-view.component';
@@ -33,10 +32,8 @@ import {RouterModule} from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
-    IssueListComponent,
     MainPageComponent,
     StatusFilterComponent,
-    IssueFormComponent,
     LoginViewComponent,
     BccListViewComponent,
     BccFormComponent,
@@ -54,6 +51,7 @@ import {RouterModule} from '@angular/router';
     MatButtonModule,
     MatListModule,
     RoutingModule,
+    MatCardModule,
     MatButtonToggleModule,
     MatInputModule,
     MatFormFieldModule,
