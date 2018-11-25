@@ -2,7 +2,7 @@ import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angula
 import {FormBuilder, Validators} from '@angular/forms';
 import {BusinessCard} from '../BusinessCard';
 import {ActivatedRoute} from '@angular/router';
-import {BccService} from '../bcc.service';
+import {BccService} from '../services/bcc.service';
 import {Location} from '@angular/common';
 
 @Component({

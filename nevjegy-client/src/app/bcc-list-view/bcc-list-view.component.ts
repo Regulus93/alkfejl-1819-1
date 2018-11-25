@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessCard } from '../BusinessCard';
-import { BccService } from '../bcc.service';
+import { BccService } from '../services/bcc.service';
 
 @Component({
   selector: 'app-bcc-list-view',

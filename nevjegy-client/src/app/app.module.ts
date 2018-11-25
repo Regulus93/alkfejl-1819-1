@@ -11,6 +11,7 @@ import {
   MatButtonToggleModule,
   MatInputModule,
   MatFormFieldModule,
+  MatSidenavModule,
   MatSelectModule,
   MatCardModule
 } from '@angular/material';
@@ -50,6 +51,7 @@ import {RouterModule} from '@angular/router';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatSidenavModule,
     RoutingModule,
     MatCardModule,
     MatButtonToggleModule,

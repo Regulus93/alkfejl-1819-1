@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {filter, find, map, tap} from 'rxjs/operators';
 import {Observable, pipe} from 'rxjs';
-import {BusinessCard} from './BusinessCard';
+import {BusinessCard} from '../BusinessCard';
 
 const bccEndpoint = 'http://localhost:8080/BCC/';
 const userEndpoint = 'http://localhost:8080/BCC/user/';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': btoa('admin1:1234567')
+    'Authorization': btoa('admin1:123456')
   })
 };
 
