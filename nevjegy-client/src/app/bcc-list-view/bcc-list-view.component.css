@@ -10,3 +10,13 @@ small mat-icon {
 a.selected {
   background-color: orange;
 }
+mat-card {
+  width: calc(80% - 70px);
+  height: calc(80% - 70px);
+}
+.card {
+  margin-bottom: 15px;
+}
+mat-sidenav{
+  width: 25%;
+}

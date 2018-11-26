@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessCard } from '../BusinessCard';
 import { BccService } from '../services/bcc.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-bcc-list-view',
@@ -15,7 +16,8 @@ export class BccListViewComponent implements OnInit {
   selectedBcc: BusinessCard = null;
 
   constructor(
-    private bccService: BccService
+    private bccService: BccService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -26,18 +28,17 @@ export class BccListViewComponent implements OnInit {
   }
 
   filterBcc() {
-    this.filteredBcc = this.selectedStatus === ''
-      ? this.bccs
-      : this.bccs;
-  }
-
-  // (change)="onFilterChange(group.value)"
-  onFilterChange(value) {
-    this.selectedStatus = value;
-    this.filterBcc();
+    console.log("Selected status: " + this.selectedStatus);
+    console.log("Logic part: " + this.selectedStatus === '');
+    console.log("Value of bccs array: " + this.bccs);
+    this.filteredBcc = this.bccs;
   }
 
   onFormSave(bcc: BusinessCard) {
     this.selectedBcc = bcc;
+  }
+
+  isLoggedIn() {
+    return this.authService.getUser() != null;
   }
 }

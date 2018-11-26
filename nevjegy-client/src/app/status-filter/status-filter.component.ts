@@ -9,7 +9,7 @@ export class StatusFilterComponent implements OnInit {
 
   statuses: string[] = ['NEW', 'DOING', 'DONE'];
   @Input() selectedStatus = '';
-  @Output() change = new EventEmitter<string>();
+  // @Output() change = new EventEmitter<string>();
 
   constructor() {
   }
@@ -18,8 +18,8 @@ export class StatusFilterComponent implements OnInit {
   }
 
   // (change)="onFilterChange(group.value)"
-  onFilterChange(value) {
-    this.selectedStatus = value;
-    this.change.emit(value);
-  }
+  // onFilterChange(value) {
+    // this.selectedStatus = value;
+    // this.change.emit(value);
+  // }
 }

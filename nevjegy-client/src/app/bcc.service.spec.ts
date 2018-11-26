@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BccService } from './bcc.service';
+import { BccService } from './services/bcc.service';
 
 describe('IssueService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -1,29 +1,34 @@
 <h2>BusinessCard list</h2>
 
-<status-filter [selectedStatus]="selectedStatus" (change)="onFilterChange($event)"></status-filter>
-
 <mat-sidenav-container class="example-container">
-    <mat-sidenav opened mode="side">Start content</mat-sidenav>
-    <mat-nav-list>
-        <a mat-list-item
-          *ngFor="let bcc of filteredBcc"
-          [routerLink]="['/cards', bcc.id, 'edit']"
-          (click)="selectedBcc = bcc"
-          [class.selected]="bcc === selectedBcc"
-        >
+    <mat-sidenav opened mode="side" position="start"><app-searchbar></app-searchbar></mat-sidenav>
+      <mat-card class="card" *ngFor="let bcc of bccs"
+      [routerLink]="['/cards', bcc.id, 'edit']"
+      (click)="selectedBcc = bcc"
+      [class.selected]="bcc === selectedBcc">
+        <mat-card-title>
           <mat-icon *ngIf="bcc.address === 'Budapest'" matListIcon style="color: red">fiber_new</mat-icon>
           <mat-icon *ngIf="bcc.address === 'New York'" matListIcon style="color: orange">build</mat-icon>
           <mat-icon *ngIf="bcc.address === 'Torino'" matListIcon style="color: green">done</mat-icon>
+          asd</mat-card-title>
+        <mat-card-content>
           <h3 matLine>{{bcc.name}}</h3>
           <small matLine>
             <mat-icon>place</mat-icon>{{bcc.address}}
             <mat-icon>access_time</mat-icon> {{bcc.updated_at}}
           </small>
           <p matLine>{{bcc.phone}}</p>
-        </a>
-      </mat-nav-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button *ngIf="isLoggedIn() && isNotCollected()">Collect</button>
+          <button mat-button *ngIf="isLoggedIn() && isCollected()">Drop</button>
+          <button mat-button>Edit</button>
+        </mat-card-actions>
+      </mat-card>
       
-      <bcc-form *ngIf="selectedBcc" [bcc]="selectedBcc" (save)="onFormSave($event)"></bcc-form>
+      <mat-sidenav opened mode="side" position="end">
+        <bcc-form *ngIf="selectedBcc" [bcc]="selectedBcc" (save)="onFormSave($event)"></bcc-form>
+      </mat-sidenav>
   </mat-sidenav-container>
   
 
