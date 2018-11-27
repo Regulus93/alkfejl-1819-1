@@ -18,7 +18,7 @@ import {
 import { MainPageComponent } from './main-page/main-page.component';
 import { RoutingModule } from './routing/routing.module';
 import { StatusFilterComponent } from './status-filter/status-filter.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginViewComponent } from './login-view/login-view.component';
 import { BccListViewComponent } from './bcc-list-view/bcc-list-view.component';
@@ -57,6 +57,7 @@ import {RouterModule} from '@angular/router';
     MatButtonToggleModule,
     MatInputModule,
     MatFormFieldModule,
+    FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     HttpClientModule,
