@@ -1,19 +1,23 @@
 <div class="container">
-  <h1 class="red-text text-lighten-2" align="center">Bejelentkezés</h1>
+  <h1 class="red-text text-lighten-2" align="center">Login</h1>
   <div class="row" align="center">
     <div class="input-field col s12">
-      <input #email type="email" [ngClass]="error ? 'error' : ''" placeholder="E-mail cím">
+      <mat-form-field hintLabel="">
+          <input matInput #email type="email" [ngClass]="error ? 'error' : ''" placeholder="E-mail">
+      </mat-form-field>
     </div>
   </div>
   <div class="row" align="center">
     <div class="input-field col s12">
-      <input #password type="password" [ngClass]="error ? 'error' : ''" placeholder="Jelszó">
-    </div>
+      <mat-form-field hintLabel="">
+        <input matInput #password type="password" [ngClass]="error ? 'error' : ''" placeholder="Password">
+      </mat-form-field>
+      </div>
   </div>
   <div class="row" align="center">
     <div class="col s12">
-      <input type="button" value="Bejelentkezés" class="btn"
-             (click)="tryLogin(email.value, password.value)">
+        <button mat-flat-button type="submit" color="primary" class="btn"
+             (click)="tryLogin(email.value, password.value)">Login</button>
     </div>
   </div>
   <div class="row">
