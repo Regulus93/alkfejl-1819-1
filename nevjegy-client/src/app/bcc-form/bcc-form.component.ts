@@ -19,6 +19,7 @@ export class BccFormComponent implements OnInit, OnChanges {
     phone: [''],
     status: ['NEW', [Validators.required]]
   });
+
   @Input() bcc: BusinessCard;
   @Output() save = new EventEmitter<BusinessCard>();
 
