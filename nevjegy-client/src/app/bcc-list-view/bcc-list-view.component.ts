@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BusinessCard } from '../BusinessCard';
 import { BccService } from '../services/bcc.service';
 import { AuthService } from '../services/auth.service';
@@ -6,7 +6,8 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-bcc-list-view',
   templateUrl: './bcc-list-view.component.html',
-  styleUrls: ['./bcc-list-view.component.css']
+  styleUrls: ['./bcc-list-view.component.css'],
+  providers: [AuthService]
 })
 export class BccListViewComponent implements OnInit {
 
@@ -15,10 +16,21 @@ export class BccListViewComponent implements OnInit {
   filteredBcc: BusinessCard[] = [];
   selectedBcc: BusinessCard = null;
 
+  dummyBusinessCards: BusinessCard[] = [];
+
   constructor(
     private bccService: BccService,
     private authService: AuthService
-  ) { }
+  ) { 
+    let dummyBusinessCard = new BusinessCard();
+    dummyBusinessCard.id = 1;
+    dummyBusinessCard.name = 'Dummy';
+    dummyBusinessCard.phone = '+3424234234';
+    dummyBusinessCard.category = 'Example data';
+    dummyBusinessCard.address = 'Tokyo';
+
+    this.dummyBusinessCards.push(dummyBusinessCard);
+  }
 
   ngOnInit() {
     this.bccService.getBccs().subscribe((data) => {
@@ -28,9 +40,6 @@ export class BccListViewComponent implements OnInit {
   }
 
   filterBcc() {
-    console.log("Selected status: " + this.selectedStatus);
-    console.log("Logic part: " + this.selectedStatus === '');
-    console.log("Value of bccs array: " + this.bccs);
     this.filteredBcc = this.bccs;
   }
 
@@ -40,5 +49,13 @@ export class BccListViewComponent implements OnInit {
 
   isLoggedIn() {
     return this.authService.getUser() != null;
+  }
+
+  selectBcc(bcc: BusinessCard){
+    if(this.selectedBcc == null){
+      this.selectedBcc = bcc;
+    } else {
+      this.selectedBcc = null;
+    }
   }
 }

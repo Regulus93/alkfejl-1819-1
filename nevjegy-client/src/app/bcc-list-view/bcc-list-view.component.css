@@ -11,12 +11,13 @@ a.selected {
   background-color: orange;
 }
 mat-card {
-  width: calc(80% - 70px);
-  height: calc(80% - 70px);
+  width: calc(90% - 10px);
+  height: calc(70% - 70px);
+  margin-left: 20px;
 }
 .card {
   margin-bottom: 15px;
 }
 mat-sidenav{
-  width: 25%;
+  width: 20%;
 }
