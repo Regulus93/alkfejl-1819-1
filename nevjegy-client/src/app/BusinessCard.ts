@@ -3,6 +3,5 @@ export class BusinessCard {
   name = '';
   address = '';
   phone = '';
-  updated_at = '';
-  status = 'NEW';
+  category = '';
 }
