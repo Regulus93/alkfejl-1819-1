@@ -13,7 +13,8 @@ import {
   MatFormFieldModule,
   MatSidenavModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatExpansionModule
 } from '@angular/material';
 import { MainPageComponent } from './main-page/main-page.component';
 import { RoutingModule } from './routing/routing.module';
@@ -29,6 +30,8 @@ import { ProfileDisplayComponent } from './profile-display/profile-display.compo
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { BccViewComponent } from './bcc-view/bcc-view.component';
 import {RouterModule} from '@angular/router';
+import { EditbarComponent } from './editbar/editbar.component';
+import { MenubarComponent } from './menubar/menubar.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import {RouterModule} from '@angular/router';
     UserViewComponent,
     ProfileDisplayComponent,
     SearchbarComponent,
-    BccViewComponent
+    BccViewComponent,
+    EditbarComponent,
+    MenubarComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,8 @@ import {RouterModule} from '@angular/router';
     ReactiveFormsModule,
     MatSelectModule,
     HttpClientModule,
-	RouterModule
+    RouterModule,
+    MatExpansionModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

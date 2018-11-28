@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from './services/auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,23 +8,8 @@ import {AuthService} from './services/auth.service';
   providers: [AuthService]
 })
 export class AppComponent {
-  title = 'issue-tracker-client';
-  text = 'Login';
 
-  constructor(private authService: AuthService) {
+  constructor() {
   }
 
-
-  public changeText() {
-    if (this.text === 'Login') {
-      this.text = 'Logout';
-    }
-  }
-
-  public logout() {
-    if (this.text === 'Logout') {
-      this.authService.logout();
-      this.text = 'Login';
-    }
-  }
 }

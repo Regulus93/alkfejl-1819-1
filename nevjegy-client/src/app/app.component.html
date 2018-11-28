@@ -1,15 +1,3 @@
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>
-    BCC - Business Card Collector
-  </button>
-  <button mat-button routerLink="/issues">My BCs</button>
-  <button mat-button routerLink="/bcc-form">New BC</button>
-  <button mat-button routerLink="/bcc-list-view">Browse BCC</button>
-  <button mat-button routerLink="/user-view">All User</button>
-  <button class="login" mat-button routerLink="/login-view" (click)="logout()">{{text}}</button>
-  <button mat-button routerLink="/user-form">Registration</button>
-  <button mat-button routerLink="/profile-display">My Profile</button>
-</mat-toolbar>
+<app-menubar></app-menubar>
 
 <router-outlet></router-outlet>
