@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {BusinessCard} from '../BusinessCard';
+import {Category} from '../Category';
 import {ActivatedRoute} from '@angular/router';
 import {BccService} from '../services/bcc.service';
 import {Location} from '@angular/common';
@@ -22,6 +23,12 @@ export class BccFormComponent implements OnInit, OnChanges {
 
   @Input() bcc: BusinessCard;
   @Output() save = new EventEmitter<BusinessCard>();
+
+  categories: Category[] = [
+    {id: 1, name: 'Repairman'},
+    {id: 2, name: 'Teacher'},
+    {id: 3, name: 'Chef'}
+  ];
 
   get name() {
     return this.form.get('name');
