@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {User} from '../classes/user';
-import {AppComponent} from '../app.component';
+import {MenubarComponent} from '../menubar/menubar.component';
 
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
   styleUrls: ['./login-view.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, MenubarComponent]
 })
 export class LoginViewComponent implements OnInit {
   private error: boolean;
@@ -18,7 +18,7 @@ export class LoginViewComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
-    private component: AppComponent
+    private component: MenubarComponent
   ) {
   }
 
