@@ -21,16 +21,50 @@ export class BccService {
   constructor(private http: HttpClient) {
   }
 
+  // ALL BC
   getBccs(): Observable<BusinessCard[]> {
     console.log(httpOptions.headers.get('Authorization'));
     return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC');
   }
 
+  // BC BY ID
   getBcc(id): Observable<BusinessCard[]> {
-    return this.http.get<BusinessCard[]>(bccEndpoint + 'getAllBC', httpOptions).pipe(map(data => data.filter(bc => bc.id === id)));
+    return this.http.get<BusinessCard[]>(bccEndpoint + 'getBCById?bcId=' + id, httpOptions);
   }
 
-  postBcc(bc: BusinessCard): void {
-    this.http.put(userEndpoint + 'updateBC', bc, httpOptions).subscribe();
+  // BC update
+  updateBc(bc: BusinessCard): Observable<BusinessCard> {
+    return this.http.put(userEndpoint + 'updateBC', bc, httpOptions);
+  }
+
+  // BC post
+  postBc(bc: BusinessCard): Observable<BusinessCard> {
+    return this.http.post(userEndpoint + 'createBC', bc, httpOptions);
+  }
+
+  // Feedbacks by bc id
+  getFeedback(id) {
+    return this.http.get<BusinessCard[]>(bccEndpoint + 'getFeedbacks/' + id, httpOptions);
+  }
+
+  // Delete by id
+  deleteBc(id): Observable<BusinessCard[]> {
+    return this.http.delete<BusinessCard[]>(userEndpoint + 'deleteBC', httpOptions);
+  }
+
+  collectBc(id): Observable<BusinessCard[]> {
+    return this.http.post<BusinessCard[]>(userEndpoint + 'collectBC?bcId=' + id, httpOptions);
+  }
+
+  dropBc(id): Observable<BusinessCard[]> {
+    return this.http.post<BusinessCard[]>(userEndpoint + 'dropBC?bcId=' + id, httpOptions);
+  }
+
+  addFeedback(feedback: Feedback, id): Observable<Feedback> {
+    return this.http.post(userEndpoint + 'addFeedback?=bcId' + id, feedback, httpOptions);
+  }
+
+  removeFeedback(id): Observable<Feedback> {
+    return this.http.post(userEndpoint + 'removeFeedback?=bcId' + id, httpOptions);
   }
 }

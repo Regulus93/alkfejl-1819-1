@@ -30,7 +30,6 @@ import { ProfileDisplayComponent } from './profile-display/profile-display.compo
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { BccViewComponent } from './bcc-view/bcc-view.component';
 import {RouterModule} from '@angular/router';
-import { EditbarComponent } from './editbar/editbar.component';
 import { MenubarComponent } from './menubar/menubar.component';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { MenubarComponent } from './menubar/menubar.component';
     ProfileDisplayComponent,
     SearchbarComponent,
     BccViewComponent,
-    EditbarComponent,
     MenubarComponent
   ],
   imports: [

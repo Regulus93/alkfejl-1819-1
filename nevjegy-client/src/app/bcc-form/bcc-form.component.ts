@@ -70,7 +70,7 @@ export class BccFormComponent implements OnInit, OnChanges {
 
   onSubmit() {
     const emittedBcc = Object.assign(this.bcc, this.form.value);
-    this.bccService.postBcc(emittedBcc);
+    this.bccService.updateBc(emittedBcc);
   }
 
 }

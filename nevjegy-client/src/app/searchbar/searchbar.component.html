@@ -1,2 +1,2 @@
-<input placeHolder="Search">
-<button mat-button>Search</button>
+<input tmatInput #filter ype="filter" placeHolder="Search">
+<button mat-button (click)="filterBccs(filter.value)">Search</button>
